@@ -1,19 +1,19 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const {Status, Types} = require("../utils/enums")
 
 const listingSchema = new Schema({
     // Listing information
-    user_id: {type: Schema.Types.ObjectId, ref: "User", required: true},
+    user_id: {type: Schema.Types.ObjectId, ref: "Users", required: true},
     title: {type: String, required: true},
     description: {type: String, required: true},
-    status: {}, //lav enums i utils
-    createdAt: {type: Number, required: true, default: Date.now() },
-    updatedAt: {},
-    images: {},
-    favoritedBy: {},
+    status: {type: String, required: true, enum: Object.values(Status), default: Status.UNDERREVIEW }, //lav enums i utils
+    timestamps: true, // Burde håndtere createdAt og UpdatedAt
+    images: {type: String, required: false, default: null}, // Lav sti til default billede her måske
+    favoritedBy: [{type: Schema.Types.ObjectId, ref: "Users"}],
 
     //Property information
-    type: {},
+    type: {type: String, required: true, enum: Object.values(Types) },
     price: {
         purchasePrice: {type: Number, required: true},
         monthlyOwnershipCost: {type: Number, required: true},
@@ -39,5 +39,5 @@ const listingSchema = new Schema({
     floors: {type: Number, required: true},
     apartmentFloor: {type: String, required: false},
     energyRating: {type: String, required: true},
-    evaluation: {type: String, required: false},
+    evaluation: {type: String, required: false}
 });
