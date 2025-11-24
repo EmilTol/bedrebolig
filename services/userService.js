@@ -1,36 +1,35 @@
 const User = require('../models/users');
 
-exports.create = async (req, res) => {
-    const user = new User(req.body);
+exports.create = async (data) => {
+    const user = new User(data);
     await user.save();
-    return res.status(201).json(user);
+    return user;
 }
 
-exports.getAll = async (req, res) => {
-    const users = await User.find();
-    return res.status(200).json(users);
+exports.getAll = async () => {
+    return await User.find();
 }
 
-exports.getById = async (req, res) => {
-    const user = await User.findById(req.params.id);
+exports.getById = async (id) => {
+    const user = await User.findById(id);
     if (!user) {
-        res.status(404).json({ message: 'Ingen bruger fundet' });
+        throw new Error('Ingen bruger fundet');
     }
-    return res.status(200).json(user);
+    return user;
 }
 
-exports.update = async (req, res) => {
-    const user = await User.findById(req.params.id, req.body);
+exports.update = async (id, data) => {
+    const user = await User.findByIdAndUpdate(id, data, { new: true });
     if (!user) {
-        return res.status(404).json({ message: 'Ingen bruger fundet' });
+        throw new Error('Ingen bruger fundet');
     }
-    return res.status(200).json(user);
+    return user;
 }
 
-exports.delete = async (req, res) => {
-    const user = await User.findById(req.params.id);
+exports.delete = async (id) => {
+    const user = await User.findByIdAndDelete(id);
     if (!user) {
-        return res.status(404).json({ message: 'Ingen bruger fundet' });
+        throw new Error('Ingen bruger fundet');
     }
-    return res.status(200).json(user);
+    return user;
 }

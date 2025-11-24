@@ -5,8 +5,7 @@ const {Roles} = require("../utils/enums")
 const userSchema = new Schema({
     name: {
         type: String,
-        required: true,
-        unique: false},
+        required: true,},
 
     role: {
         type: String,
@@ -25,8 +24,11 @@ const userSchema = new Schema({
         required: true },
 
     phoneNumber: {
-        type: Number,
+        type: String,
         required: true },
-});
+    },
+    {
+        timeStamp: true,
+    });
 
 module.exports = mongoose.model("Users", userSchema);
