@@ -62,8 +62,7 @@ exports.loginUser = async (email, password) => {
     // Signature beregnes som: hash(header + payload + SECRET_KEY)
     // SECRET_KEY bruges som input til hash-funktionen, men er ikke synlig i token
     // Kun serveren kan verificere/generere gyldig signature (har SECRET_KEY)
-    const token = generateToken(user._id);
-
+    const token = generateToken(user);
 
     const userObject = user.toObject();
     delete userObject.password;
