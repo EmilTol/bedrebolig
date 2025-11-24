@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log ind - Bedrebolig</title>
+    <link rel="stylesheet" href="/CSS/login.css">
+</head>
+<body>
+<header>
+    <nav>
+        <a href="landing.html" class="logo">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            Bedrebolig
+        </a>
+        <a href="landing.html" class="nav-back">← Tilbage til forsiden</a>
+    </nav>
+</header>
+
+<div class="main-content">
+    <div class="login-container">
+        <div class="page-title">
+            <h1>Velkommen tilbage</h1>
+            <p>Log ind for at fortsætte til Bedrebolig</p>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="din@email.dk">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Adgangskode</label>
+                <input type="password" id="password" name="password" required placeholder="••••••••">
+            </div>
+
+            <div class="form-options">
+                <div class="remember-me">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Husk mig</label>
+                </div>
+                <a href="#" class="forgot-password">Glemt adgangskode?</a>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Log ind</button>
+        </form>
+
+        <div class="divider">eller</div>
+
+        <div class="register-link">
+            Har du ikke en konto? <a href="register.html">Opret konto gratis</a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-content">
+        <p>&copy; 2024 Bedrebolig. Alle rettigheder forbeholdes.</p>
+    </div>
+</footer>
+
+<script src="/JS/login.js"></script>
+</body>
+</html>

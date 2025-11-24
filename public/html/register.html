@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opret konto - Bedrebolig</title>
+    <link rel="stylesheet" href="/CSS/register.css">
+</head>
+<body>
+<header>
+    <nav>
+        <a href="landing.html" class="logo">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            Bedrebolig
+        </a>
+        <a href="landing.html" class="nav-back">← Tilbage til forsiden</a>
+    </nav>
+</header>
+
+<div class="main-content">
+    <div class="register-container">
+        <div class="page-title">
+            <h1>Opret din konto</h1>
+            <p>Kom i gang med Bedrebolig i dag - det er gratis</p>
+        </div>
+
+        <div class="success-message" id="successMessage"></div>
+        <div class="error-message" id="errorMessage"></div>
+
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="name">Fulde navn</label>
+                <input type="text" id="name" name="name" required placeholder="Anders Andersen">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="din@email.dk">
+            </div>
+
+            <div class="form-group">
+                <label for="phoneNumber">Telefonnummer</label>
+                <input type="tel" id="phoneNumber" name="phoneNumber" required placeholder="12345678" pattern="[0-9]{8}" maxlength="8">
+                <small>8 cifre uden mellemrum</small>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Adgangskode</label>
+                <input type="password" id="password" name="password" required placeholder="••••••••" minlength="5">
+                <div class="password-strength">
+                    <div class="password-strength-bar" id="passwordStrengthBar"></div>
+                </div>
+                <small>Minimum 5 tegn</small>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Bekræft adgangskode</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="••••••••">
+            </div>
+
+            <div class="terms">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">
+                    Jeg accepterer <a href="#">vilkår og betingelser</a> samt <a href="#">privatlivspolitik</a>
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Opret konto</button>
+        </form>
+
+        <div class="divider">eller</div>
+
+        <div class="login-link">
+            Har du allerede en konto? <a href="login.html">Log ind</a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-content">
+        <p>&copy; 2024 Bedrebolig. Alle rettigheder forbeholdes.</p>
+    </div>
+</footer>
+
+<script src="/JS/register.js"></script>
+</body>
+</html>

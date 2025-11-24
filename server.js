@@ -24,8 +24,13 @@ app.use(express.json());
 app.use("/api", listingRoutes);
 app.use("/api", userRoutes);
 
-app.use(express.static(path.join(__dirname, 'public', "html")));
+// Serve static files from public directory
+app.use(express.static(path.join(__dirname, 'public')));
 
+// Redirect root to landing page
+app.get('/', (req, res) => {
+    res.redirect('/html/landing.html');
+});
 
 connectDB();
 
