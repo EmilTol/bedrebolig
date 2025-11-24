@@ -30,10 +30,10 @@ exports.getById = async (req, res) => {
 
 exports.update = async (req, res) => {
     try{
-        const user = await service.update(req.body);
+        const user = await service.update(req.params.id, req.body);
         res.status(200).json(user);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(404).json({ error: error.message });
     }
 }
 exports.delete = async (req, res) => {
@@ -42,14 +42,5 @@ exports.delete = async (req, res) => {
         res.status(200).json(user);
     } catch (error) {
         res.status(500).json({ error: error.message });
-    }
-}
-
-exports.loginUser = async (req, res) => {
-    try {
-        const user = await userService.loginUser(req.body.email, req.body.password);
-        res.status(200).json(user);
-    } catch (error) {
-        res.status(401).json({error: error.message});
     }
 }

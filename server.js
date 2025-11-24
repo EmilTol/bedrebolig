@@ -24,7 +24,7 @@ app.use(express.json());
 app.use("/api", listingRoutes);
 app.use("/api", userRoutes);
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public', "html")));
 
 
 connectDB();

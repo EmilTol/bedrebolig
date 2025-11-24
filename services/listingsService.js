@@ -14,3 +14,14 @@ exports.createListing = async (data) => {
     }
 }
 
+exports.deleteListing = async (data) => {
+    const listing = await Listings.findByIdAndDelete(data)
+
+    if (!data){
+        console.log("Ingen post at slette")
+        return null;
+    }
+    return listing;
+
+}
+
