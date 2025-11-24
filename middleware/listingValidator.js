@@ -37,10 +37,10 @@ const createListingValidation = Joi.object({
             'any.only': `Status must be one of: ${Object.values(Status).join(', ')}`
         }),
 
-    images: Joi.string()
-        .uri()
-        .allow(null)
-        .optional(),
+    images: Joi.array()
+        .items(Joi.string().uri())
+        .max(20)
+        .default([]),
 
     favoritedBy: Joi.array()
         .items(Joi.string().pattern(/^[0-9a-fA-F]{24}$/))
