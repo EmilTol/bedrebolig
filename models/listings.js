@@ -1,19 +1,18 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const {Status, Types} = require("../utils/enums")
+const {Status, BuildingType} = require("../utils/enums")
 
 const listingSchema = new Schema({
     // Listing information
-    user_id: {type: Schema.Types.ObjectId, ref: "Users", required: true},
+    user_id: {type: Schema.Types.ObjectId, ref: "Users", required: false}, // husk at ændre til TRUE
     title: {type: String, required: true},
     description: {type: String, required: true},
     status: {type: String, required: true, enum: Object.values(Status), default: Status.UNDERREVIEW }, //lav enums i utils
-    timestamps: true, // Burde håndtere createdAt og UpdatedAt
     images: {type: String, required: false, default: null}, // Lav sti til default billede her måske
     favoritedBy: [{type: Schema.Types.ObjectId, ref: "Users"}],
 
     //Property information
-    type: {type: String, required: true, enum: Object.values(Types) },
+    buildingType: {type: String, required: true, enum: Object.values(BuildingType) },
     price: {
         purchasePrice: {type: Number, required: true},
         monthlyOwnershipCost: {type: Number, required: true},
@@ -26,8 +25,8 @@ const listingSchema = new Schema({
         postalCode: {type: Number, required: true} ,
         address: {type: String, required: true},
         coordinates: {
-            type: "point",
-            coordinates: [{}] //lng, lat
+            type: {type: String, enum: ['Point'], default: 'Point'},
+            coordinates: {type: [Number], required: true},
         }
     },
     rooms: {type: Number, required: true},
@@ -40,4 +39,11 @@ const listingSchema = new Schema({
     apartmentFloor: {type: String, required: false},
     energyRating: {type: String, required: true},
     evaluation: {type: String, required: false}
+}, {
+
+    timestamps: true, // Burde håndtere createdAt og UpdatedAt
+
 });
+
+
+module.exports = mongoose.model("Listings", listingSchema);

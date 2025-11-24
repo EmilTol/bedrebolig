@@ -8,6 +8,8 @@ const {connectDB} = require('./db');
 
 const morgan = require('morgan');
 
+const listingRoutes = require('./routes/listingRoutes');
+
 const app = express();
 
 const port = process.env.PORT;
@@ -17,10 +19,11 @@ app.use(morgan('method :url -> status=:status :response-time ms'));
 
 app.use(express.json());
 
+app.use("/api", listingRoutes);
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-// await connectDB();
 
 connectDB();
 
-app.listen(port, () => console.log('Server klar op http://localhost:3000'));
+app.listen(port, () => console.log('Server klar på http://localhost:3000'));

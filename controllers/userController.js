@@ -19,6 +19,31 @@ exports.getAll = async (req, res) => {
     }
 }
 
+exports.getById = async (req, res) => {
+    try{
+        const user = await service.getById(req.params.id);
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+exports.update = async (req, res) => {
+    try{
+        const user = await service.update(req.body);
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+exports.delete = async (req, res) => {
+    try {
+        const user = await service.delete(req.params.id);
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
 
 exports.loginUser = async (req, res) => {
     try {

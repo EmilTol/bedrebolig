@@ -11,7 +11,7 @@ const Status = Object.freeze({
     UNLISTED: "unlisted"
 });
 
-const Types = Object.freeze({
+const BuildingType = Object.freeze({
     VILLA: "Villa",
     EJERLEJLIGHED: "Ejerlejlighed",
     RAEKKEHUS: "Rækkehus",
@@ -25,4 +25,4 @@ const Types = Object.freeze({
 
 
 
-module.exports = {Roles, Status, Types};
+module.exports = {Roles, Status, BuildingType};

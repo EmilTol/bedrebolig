@@ -5,7 +5,7 @@ dotenv.config();
 
 const connectDB = async () => {
     try {
-        const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/bedreboligDB';
+        const uri = process.env.MONGO_URI;
         await mongoose.connect(uri, {
             autoIndex: true,
         });
