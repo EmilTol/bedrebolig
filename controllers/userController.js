@@ -44,3 +44,13 @@ exports.delete = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 }
+
+//POST
+exports.loginUser = async (req, res) => {
+    try {
+        const user = await service.loginUser(req.body.email, req.body.password);
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(401).json({ error: error.message });
+    }
+}
