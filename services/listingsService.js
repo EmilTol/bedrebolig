@@ -25,3 +25,60 @@ exports.deleteListing = async (data) => {
 
 }
 
+exports.addTofavourites = async (listingId, userId) => {
+
+    //checks før saving
+    const listing = await Listings.findById(listingId);
+    if (!listing){
+        throw new Error('Listing not found');
+    }
+
+    const user = await Users.findById(userId);
+    if (!user){
+        throw new Error('User not found');
+    }
+
+    if (listing.favoritedBy.includes(userId)){
+        throw new Error('Listing already favourited')
+    }
+
+    listing.favoritedBy.push(userId);
+    await listing.save();
+
+    return listing;
+}
+
+exports.removeFromfavourites = async (listingId, userId) => {
+
+    const listing = Listings.findById(listingId);
+
+
+    if (!listing){
+        throw new Error('Listing not found');
+    }
+
+    if (!listing.favoritedBy.includes(userId)){
+        throw new Error('Listing is not in favourites')
+    }
+
+    listing.favoritedBy = listing.favoritedBy.filter(
+        id => id.toString() !== userId.toString()
+    );
+    await listing.save();
+
+    return listing;
+}
+
+exports.getUserFavourites = async ( userId) => {
+
+const user = await Users.findById(userId);
+if (!user){
+    throw new Error('User not found');
+}
+
+const favourites = await Listings.find({
+    favouritedBy:userId
+})
+return favourites;
+}
+
