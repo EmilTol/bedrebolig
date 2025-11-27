@@ -4,13 +4,15 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const errorMessage = document.getElementById('errorMessage');
+    const submitButton = e.target.querySelector("button[type=submit]");
 
     // Reset error message
     errorMessage.style.display = 'none';
+    errorMessage.textContent = "";
 
-    // Her kan du tilføje API kald til din backend
-    // Eksempel:
-    /*
+    submitButton.disabled = true;
+    submitButton.textContent = "Logger ind";
+
     try {
         const response = await fetch('/api/login', {
             method: 'POST',
@@ -20,22 +22,23 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
             body: JSON.stringify({ email, password })
         });
 
+        const data = await response.json();
+
         if (response.ok) {
-            const data = await response.json();
             // Gem token og redirect
             localStorage.setItem('token', data.token);
-            window.location.href = '/dashboard.html';
+            localStorage.setItem("user", JSON.stringify(data.user));
+            window.location.href = '/';
         } else {
             errorMessage.textContent = 'Forkert email eller adgangskode';
             errorMessage.style.display = 'block';
+            submitButton.disabled = false;
+            submitButton.textContent = 'Login';
         }
     } catch (error) {
         errorMessage.textContent = 'Der opstod en fejl. Prøv igen senere.';
         errorMessage.style.display = 'block';
+        submitButton.disabled = false;
+        submitButton.textContent = 'Login';
     }
-    */
-
-    // Midlertidig test
-    console.log('Login forsøg:', { email, password });
-    alert('Login funktionalitet skal forbindes til backend API');
 });

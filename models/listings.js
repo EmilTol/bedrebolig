@@ -8,7 +8,7 @@ const listingSchema = new Schema({
     title: {type: String, required: true},
     description: {type: String, required: true},
     status: {type: String, required: true, enum: Object.values(Status), default: Status.UNDERREVIEW }, //lav enums i utils
-    images: {type: String, required: false, default: []}, // Lav sti til default billede her måske
+    images: {type: String, required: false}, //default: []}, // Lav sti til default billede her måske
     favoritedBy: [{type: Schema.Types.ObjectId, ref: "Users"}],
 
     //Property information
@@ -26,7 +26,7 @@ const listingSchema = new Schema({
         address: {type: String, required: true},
         coordinates: {
             type: {type: String, enum: ['Point'], default: 'Point'},
-            coordinates: {type: [Number], required: true},
+            coordinates: {type: [Number], required: true}, //lng, lat
         }
     },
     rooms: {type: Number, required: true},

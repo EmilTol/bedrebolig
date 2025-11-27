@@ -17,4 +17,5 @@ router.delete('/listing/:id/favourite', listingController.removeFromFavourites);
 
 router.get('/listing/favourites', listingController.getUserFavourites);
 
-    module.exports = router;
+
+module.exports = router;
