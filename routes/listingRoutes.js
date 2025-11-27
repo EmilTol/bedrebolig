@@ -2,8 +2,17 @@ const express = require('express');
 const router = express.Router();
 const listingController = require('../controllers/listingsController');
 const { authentication } = require('../middleware/authentication');
+const { EnergyRating, BuildingType } = require('../utils/enums');
 
-router.post("/listing", listingController.createListing);
+//Bruges til at sende enums til f.eks. createListing
+router.get('/enums', (req, res) => {
+    res.json({
+        energyRating: Object.values(EnergyRating),
+        buildingType: Object.values(BuildingType)
+    });
+});
+
+router.post("/listing", authentication, listingController.createListing);
 
 router.delete("/listing/:id", listingController.deleteListing);
 
@@ -13,7 +22,7 @@ router.post('/listing/:id/favorite', authentication, listingController.addToFavo
 
 
 // autehctication på her??
-router.delete('/listing/:id/favourite', listingController.removeFromFavourites);
+router.delete('/listing/:id/favourite', authentication, listingController.removeFromFavourites);
 
 router.get('/listing/favourites', listingController.getUserFavourites);
 

@@ -17,7 +17,7 @@
 
 <!--        Husk at lav en dropdown menu med enums-->
         <label for="buildingType"></label>Form for bolig<br>
-        <select name="buildingType" id="buildingType"></select>
+        <select name="buildingType" id="buildingType"></select><br>
 
         <label for="buildYear"></label>Byggeår<br>
         <input type="number" placeholder="f.eks. 1969" name="buildYear" id="buildYear"><br>
@@ -30,37 +30,61 @@
         <input type="text" placeholder="F.eks. Næstved" name="city" id="city"><br>
 
         <label for="postalCode"></label>Postnummer<br>
-        <input type="number" placeholder="F.eks. 4700" name="postalCode" id="postalCode" max="4"><br>
+        <input type="number" placeholder="F.eks. 4700" name="postalCode" id="postalCode" max="9990"><br>
 
         <label for="adress"></label>Adresse<br>
         <input type="text" placeholder="f.eks. Sjællandsvej 7" name="adress" id="adress"><br>
 
         <label for="coordinates"></label>Koordinator til kort<br>
-        <input type="number" placeholder="F.eks. lng, lat" name="coordinates" id="coordinates"><br>
+        <input type="text" placeholder="F.eks. lng, lat" name="coordinates" id="coordinates"><br>
 
         <h2>Bolig informationer</h2>
-        <label for=""></label><br>
-        <input type="" placeholder="Bedrebolig" name="" id=""><br>
+        <label for="rooms"></label>Rum<br>
+        <input type="number" placeholder="f.eks. 3" name=rooms"" id="rooms"><br>
 
-        <label for=""></label><br>
-        <input type="" placeholder="Bedrebolig" name="" id=""><br>
+        <label for="lotSize"></label>Grundareal eller noget dobbeltjek lige<br>
+        <input type="number" placeholder="Fucking gigantisk" name="lotSize" id="lotSize"><br>
 
-        <label for=""></label><br>
-        <input type="" placeholder="Bedrebolig" name="" id=""><br>
+        <label for="basementSize"></label>Kælderstørrelse<br>
+        <input type="number" placeholder="F.eks. 40meter :D" name="basementSize" id="basementSize"><br>
 
-        <label for=""></label><br>
-        <input type="" placeholder="Bedrebolig" name="" id=""><br>
+        <label for="renovationYear"></label>Du ved, bygget pænt igen år<br>
+        <input type="number" placeholder="f.eks. 2024" name="renovationYear" id="renovationYear"><br>
 
-        <label for=""></label><br>
-        <input type="" placeholder="Bedrebolig" name="" id=""><br>
+        <label for="floors"></label>Etage<br>
+        <input type="number" placeholder="F.eks. 2" name="floors" id="floors"><br>
 
-        <label for=""></label><br>
-        <input type="" placeholder="Bedrebolig" name="" id=""><br>
+        <label for="apartmentFloor"></label>Ting apartment ord jeg træt<br>
+        <input type="text" placeholder="F.eks. th" name="apartmentFloor" id="apartmentFloor"><br>
 
-        <label for=""></label><br>
-        <input type="" placeholder="Bedrebolig" name="" id=""><br>
+        <label for="energyRating"></label>Energimærke<br>
+        <select name="energyRating" id="energyRating"></select><br>
+
+        <label for="evaluation">Evualalaltion dansk ord</label><br>
+        <input type="file" placeholder="Fil" name="evaluation" id="evaluation"><br>
+
+        <h2>Pris</h2>
+
+        <label for="purchasePrice">Købspris</label><br>
+        <input type="number" placeholder="f.eks. 2300000" name="purchasePrice" id="purchasePrice"><br>
+
+        <label for="monthlyOwnershipCost">Mdl. ejerudgift</label><br>
+        <input type="number" placeholder="f.eks. 3200" name="monthlyOwnershipCost" id="monthlyOwnershipCost"><br>
+
+        <label for="downPayment">Udbetaling</label><br>
+        <input type="number" placeholder="f.eks. 200000" name="downPayment" id="downPayment"><br>
+
+        <label for="brutto">Brutto</label><br>
+        <input type="number" placeholder="f.eks. 8500" name="brutto" id="brutto"><br>
+
+        <label for="netto">Netto</label><br>
+        <input type="number" placeholder="f.eks. 7400" name="netto" id="netto"><br>
+
+        <input type="submit" value="Opret listing">
 
     </form>
 </div>
+
+<script src="/js/createListing.js"></script>
 </body>
 </html>

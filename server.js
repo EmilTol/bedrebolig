@@ -31,6 +31,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'html', 'landing.html'));
 });
 
+app.get('/opret/bolig', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'html', 'createListing.html'));
+})
+
 connectDB();
 
 app.listen(port, () => console.log('Server klar på http://localhost:3000'));

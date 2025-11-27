@@ -4,9 +4,13 @@ const Listings = require ("../models/listings");
 const Users = require ("../models/users");
 
 
-exports.createListing = async (data) => {
+exports.createListing = async (data, userId) => {
+    console.log("Service received data:", data);
+    console.log("Service received userId:", userId);
     try{
-        const listing = new Listings (data);
+        const listing = new Listings (
+            {...data, user_id: userId});
+        console.log("Listing object before save:", listing);
         await listing.save();
         return listing;
     } catch (error) {

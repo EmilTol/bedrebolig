@@ -23,6 +23,16 @@ const BuildingType = Object.freeze({
     VILLALEJLIGHED: "Villalejlighed"
 });
 
+const EnergyRating = Object.freeze({
+    A: "A",
+    B: "B",
+    C: "C",
+    D: "D",
+    E: "E",
+    F: "F",
+    G: "G"
+});
 
 
-module.exports = {Roles, Status, BuildingType};
+
+module.exports = {Roles, Status, BuildingType, EnergyRating};

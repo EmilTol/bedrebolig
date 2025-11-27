@@ -1,8 +1,11 @@
 const listingService = require('../services/listingsService');
 
 exports.createListing = async (req, res) => {
+    console.log("Controller req.body:", req.body);
+    console.log("Controller req.user:", req.user);
+    console.log("Controller req.user.id:", req.user?.id);
     try{
-        const listing = await listingService.createListing(req.body);
+        const listing = await listingService.createListing(req.body, req.user.id);
         res.status(201).json(listing);
     } catch ( error) {
         res.status(500).json({error: error.message});

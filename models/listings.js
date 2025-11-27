@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const {Status, BuildingType} = require("../utils/enums")
+const {Status, BuildingType, EnergyRating} = require("../utils/enums")
 
 const listingSchema = new Schema({
     // Listing information
@@ -37,7 +37,7 @@ const listingSchema = new Schema({
     renovationYear: {type: Number, required: false},
     floors: {type: Number, required: true},
     apartmentFloor: {type: String, required: false},
-    energyRating: {type: String, required: true},
+    energyRating: {type: String, required: true, enum: Object.values(EnergyRating) },
     evaluation: {type: String, required: false}
 }, {
 
