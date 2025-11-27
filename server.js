@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Redirect root to landing page
 app.get('/', (req, res) => {
-    res.redirect('/html/landing.html');
+    res.sendFile(path.join(__dirname, 'public', 'html', 'landing.html'));
 });
 
 connectDB();

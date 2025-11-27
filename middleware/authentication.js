@@ -20,7 +20,7 @@ exports.authentication = (req, res, next) => {
         req.user = { id: decoded.userId, role: decoded.role, email: decoded.email };
         next();
     } catch (error) {
-        //kan fåes hvis man prøver slette sig selv
+        //kan fåes hvis man prøver slette sig selv, måske?
         res.status(401).json({message: "Unauthorized 2"});
     }
 }
