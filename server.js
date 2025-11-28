@@ -10,6 +10,7 @@ const morgan = require('morgan');
 
 const listingRoutes = require('./routes/listingRoutes');
 const userRoutes = require('./routes/userRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(express.json());
 
 app.use("/api", listingRoutes);
 app.use("/api", userRoutes);
+app.use("/api", adminRoutes);
 
 // Serve static files from public directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -33,7 +35,11 @@ app.get('/', (req, res) => {
 
 app.get('/opret/bolig', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'html', 'createListing.html'));
-})
+});
+
+app.get('/admin', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'html', 'admin.html'));
+});
 
 connectDB();
 

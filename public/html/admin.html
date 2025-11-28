@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Bedrebolig</title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+<header>
+    <nav>
+        <a href="/" class="logo">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            Bedrebolig <span class="admin-badge">ADMIN</span>
+        </a>
+        <div class="nav-actions">
+            <a href="/" class="btn btn-secondary">Tilbage til forsiden</a>
+            <button class="btn btn-logout" id="logoutBtn">Log ud</button>
+        </div>
+    </nav>
+</header>
+
+<div class="admin-container">
+    <aside class="sidebar">
+        <div class="sidebar-section">
+            <h3>Navigation</h3>
+            <button class="sidebar-btn active" data-tab="users">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                Brugere
+                <span class="count" id="usersCount">0</span>
+            </button>
+            <button class="sidebar-btn" data-tab="listings">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                Boligopslag
+                <span class="count" id="listingsCount">0</span>
+            </button>
+        </div>
+
+        <div class="sidebar-section">
+            <h3>Statistik</h3>
+            <div class="stat-card">
+                <div class="stat-label">Afventende godkendelser</div>
+                <div class="stat-value" id="pendingCount">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Aktive opslag</div>
+                <div class="stat-value" id="activeCount">0</div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <!-- Users Tab -->
+        <div class="tab-content active" id="usersTab">
+            <div class="content-header">
+                <div>
+                    <h1>Brugerstyring</h1>
+                    <p>Administrer alle brugere på platformen</p>
+                </div>
+                <div class="header-actions">
+                    <input type="text" id="userSearch" class="search-input" placeholder="Søg efter brugere...">
+                    <button class="btn btn-primary" id="refreshUsersBtn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 4 23 10 17 10"></polyline>
+                            <polyline points="1 20 1 14 7 14"></polyline>
+                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                        </svg>
+                        Opdater
+                    </button>
+                </div>
+            </div>
+
+            <div class="alert alert-info" id="usersAlert" style="display: none;"></div>
+
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                    <tr>
+                        <th>Navn</th>
+                        <th>Email</th>
+                        <th>Telefon</th>
+                        <th>Rolle</th>
+                        <th>Oprettet</th>
+                        <th>Handlinger</th>
+                    </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                    <tr class="loading-row">
+                        <td colspan="6">
+                            <div class="loading-spinner"></div>
+                            Henter brugere...
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Listings Tab -->
+        <div class="tab-content" id="listingsTab">
+            <div class="content-header">
+                <div>
+                    <h1>Boligstyring</h1>
+                    <p>Godkend eller afvis boligopslag</p>
+                </div>
+                <div class="header-actions">
+                    <select id="statusFilter" class="filter-select">
+                        <option value="all">Alle status</option>
+                        <option value="underReview" selected>Afventer godkendelse</option>
+                        <option value="active">Aktive</option>
+                        <option value="sold">Solgte</option>
+                        <option value="unlisted">Afvist</option>
+                    </select>
+                    <button class="btn btn-primary" id="refreshListingsBtn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 4 23 10 17 10"></polyline>
+                            <polyline points="1 20 1 14 7 14"></polyline>
+                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                        </svg>
+                        Opdater
+                    </button>
+                </div>
+            </div>
+
+            <div class="alert alert-info" id="listingsAlert" style="display: none;"></div>
+
+            <div class="listings-grid" id="listingsGrid">
+                <div class="loading-card">
+                    <div class="loading-spinner"></div>
+                    <p>Henter boligopslag...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal" id="deleteModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Bekræft sletning</h2>
+            <button class="modal-close" id="closeModal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p id="deleteMessage">Er du sikker på, at du vil slette denne bruger?</p>
+            <p class="warning-text">Denne handling kan ikke fortrydes.</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" id="cancelDelete">Annuller</button>
+            <button class="btn btn-danger" id="confirmDelete">Slet</button>
+        </div>
+    </div>
+</div>
+
+<!-- Listing Details Modal -->
+<div class="modal" id="listingModal">
+    <div class="modal-content modal-large">
+        <div class="modal-header">
+            <h2>Boligdetaljer</h2>
+            <button class="modal-close" id="closeListingModal">&times;</button>
+        </div>
+        <div class="modal-body" id="listingDetails">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" id="cancelListing">Luk</button>
+            <button class="btn btn-danger" id="rejectListing">Afvis</button>
+            <button class="btn btn-success" id="approveListing">Godkend</button>
+        </div>
+    </div>
+</div>
+
+<script src="/js/admin.js"></script>
+</body>
+</html>
