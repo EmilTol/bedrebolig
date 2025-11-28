@@ -1,7 +1,7 @@
 // Check if user is admin
 document.addEventListener('DOMContentLoaded', () => {
-    const token = localStorage.getItem('token');
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const token = sessionStorage.getItem('token');
+    const user = JSON.parse(sessionStorage.getItem('user') || '{}');
 
     if (!token || user.role !== 'admin') {
         //alert('Du har ikke adgang til dette panel');
@@ -48,8 +48,8 @@ function initAdmin() {
 
     // Logout
     document.getElementById('logoutBtn').addEventListener('click', () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('user');
         window.location.href = '/';
     });
 }
@@ -76,7 +76,7 @@ async function loadUsers() {
     tbody.innerHTML = '<tr class="loading-row"><td colspan="6"><div class="loading-spinner"></div>Henter brugere...</td></tr>';
 
     try {
-        const token = localStorage.getItem('token');
+        const token = sessionStorage.getItem('token');
         const response = await fetch('/api/users', {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -152,7 +152,7 @@ async function loadListings() {
     grid.innerHTML = '<div class="loading-card"><div class="loading-spinner"></div><p>Henter boligopslag...</p></div>';
 
     try {
-        const token = localStorage.getItem('token');
+        const token = sessionStorage.getItem('token');
         const response = await fetch('/api/admin/listings', {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -216,7 +216,7 @@ function displayListings(listings) {
 
 async function viewListing(listingId) {
     try {
-        const token = localStorage.getItem('token');
+        const token = sessionStorage.getItem('token');
         const response = await fetch(`/api/admin/listings/${listingId}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -300,7 +300,7 @@ async function updateListingStatus(newStatus) {
     if (!currentListing) return;
 
     try {
-        const token = localStorage.getItem('token');
+        const token = sessionStorage.getItem('token');
         const response = await fetch(`/api/admin/listings/${currentListing._id}`, {
             method: 'PUT',
             headers: {
@@ -346,7 +346,7 @@ async function confirmDelete() {
     if (!currentDeleteTarget) return;
 
     try {
-        const token = localStorage.getItem('token');
+        const token = sessionStorage.getItem('token');
         const { id, type } = currentDeleteTarget;
 
         const endpoint = type === 'user' ? `/api/user/${id}` : `/api/listing/${id}`;

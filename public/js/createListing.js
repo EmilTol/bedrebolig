@@ -4,75 +4,52 @@ document.addEventListener("DOMContentLoaded", () => {
    form.addEventListener("submit", async (event) => {
        event.preventDefault();
 
+       //Skal bruge formdata da vi arbejder med tekst og billeder (filer)
+       const formData = new FormData();
+
        //ALLE VORES MANGE MANGE VÆRDEIER
-       const title = document.getElementById("title").value;
-       const description = document.getElementById("description").value;
-       const buildingType = document.getElementById("buildingType").value;
-       const buildYear = parseInt(document.getElementById("buildYear").value);
-       const squareMeters = parseInt(document.getElementById("squareMeters").value);
+       formData.append("title",document.getElementById("title").value);
+       formData.append("description",document.getElementById("description").value);
+       formData.append("buildingType",document.getElementById("buildingType").value);
+       formData.append("buildYear",parseInt(document.getElementById("buildYear").value));
+       formData.append("squareMeters", parseInt(document.getElementById("squareMeters").value));
 
        const city = document.getElementById("city").value;
        const postalCode = parseInt(document.getElementById("postalCode").value);
        const address = document.getElementById("adress").value;
 
        // Koordinater: bruger "lng, lat" i ét input → split
-       const coordinateInput = document.getElementById("coordinates").value;
-       const [lng, lat] = coordinateInput.split(",").map(Number);
+       //something is fucked up, bliver ikke sendt korrekt længere
+       const [lng, lat] = document.getElementById("coordinates").value.split(",").map(Number);
 
-       const rooms = parseInt(document.getElementById("rooms").value);
-       const lotSize = parseInt(document.getElementById("lotSize").value);
-       const basementSize = parseInt(document.getElementById("basementSize").value);
-       const renovationYear = parseInt(document.getElementById("renovationYear").value);
-       const floors = parseInt(document.getElementById("floors").value);
-       const apartmentFloor = document.getElementById("apartmentFloor").value;
-       const energyRating = document.getElementById("energyRating").value;
+       //samler city osv sammen i location (check models hvis forvirret)
+       formData.append("location[city]", city);
+       formData.append("location[postalCode]", postalCode);
+       formData.append("location[address]", address);
+       formData.append("location[coordinates][0]", lng);
+       formData.append("location[coordinates][1]", lat);
+
+       formData.append("rooms", parseInt(document.getElementById("rooms").value));
+       formData.append("lotSize", parseInt(document.getElementById("lotSize").value));
+       formData.append("basementSize", parseInt(document.getElementById("basementSize").value));
+       formData.append("renovationYear", parseInt(document.getElementById("renovationYear").value));
+       formData.append("floors", parseInt(document.getElementById("floors").value));
+       formData.append("apartmentFloor", document.getElementById("apartmentFloor").value);
+       formData.append("energyRating", document.getElementById("energyRating").value);
 
 
        const evaluation = document.getElementById("evaluation").value || null;
 
-       const purchasePrice = parseInt(document.getElementById("purchasePrice").value);
-       const monthlyOwnershipCost = parseInt(document.getElementById("monthlyOwnershipCost").value);
-       const downPayment = parseInt(document.getElementById("downPayment").value);
-       const brutto = parseInt(document.getElementById("brutto").value);
-       const netto = parseInt(document.getElementById("netto").value);
+       formData.append("price[purchasePrice]", parseInt(document.getElementById("purchasePrice").value));
+       formData.append("price[monthlyOwnershipCost]", parseInt(document.getElementById("monthlyOwnershipCost").value));
+       formData.append("price[downPayment]", parseInt(document.getElementById("downPayment").value));
+       formData.append("price[brutto]", parseInt(document.getElementById("brutto").value));
+       formData.append("price[netto]", parseInt(document.getElementById("netto").value));
 
-       //samler alle de forskellige priser under price
-       const price = {
-           purchasePrice,
-           monthlyOwnershipCost,
-           downPayment,
-           brutto,
-           netto
-       };
-        //samme med location
-       const location = {
-           city,
-           postalCode,
-           address,
-           coordinates: {
-               type: "Point",
-               coordinates: [lng, lat]
-           }
-       };
-
-       //sætter dem her, fylder ikke lige så meget
-       const data = {
-           title,
-           description,
-           buildingType,
-           buildYear,
-           squareMeters,
-           rooms,
-           lotSize,
-           basementSize,
-           renovationYear,
-           floors,
-           apartmentFloor,
-           energyRating,
-           evaluation,
-           price,
-           location
-       };
+       const images = document.getElementById("images").files;
+       for (let i = 0; i < images.length; i++) {
+           formData.append("images", images[i]);
+       }
 
        try {
            const token = sessionStorage.getItem("token");
@@ -85,10 +62,10 @@ document.addEventListener("DOMContentLoaded", () => {
            const response = await fetch("/api/listing", {
                method: "POST",
                headers: {
-                   "Content-Type": "application/json",
+                   //bruger ikke content type med formData
                    "Authorization": "Bearer " + token
                },
-               body: JSON.stringify(data)
+               body: formData
            });
 
 

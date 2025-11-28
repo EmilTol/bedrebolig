@@ -2,15 +2,17 @@ const fs = require('fs');
 const path = require('path');
 const Listings = require ("../models/listings");
 const Users = require ("../models/users");
+const {removeFromFavourites} = require("../controllers/listingsController");
 
 
-exports.createListing = async (data, userId) => {
-    console.log("Service received data:", data);
-    console.log("Service received userId:", userId);
+exports.createListing = async (data, userId, extra = {}) => {
     try{
-        const listing = new Listings (
-            {...data, user_id: userId});
-        console.log("Listing object before save:", listing);
+        const listing = new Listings ({
+            ...data,
+            user_id: userId,
+                ...extra
+        });
+
         await listing.save();
         return listing;
     } catch (error) {
@@ -29,49 +31,81 @@ exports.deleteListing = async (data) => {
 
 }
 
-exports.addTofavourites = async (listingId, userId) => {
-
-    //checks før saving
-    const listing = await Listings.findById(listingId);
-    if (!listing){
-        throw new Error('Listing not found');
-    }
-
-    const user = await Users.findById(userId);
-    if (!user){
-        throw new Error('User not found');
-    }
-
-    if (listing.favoritedBy.includes(userId)){
-        throw new Error('Listing already favourited')
-    }
-
-    listing.favoritedBy.push(userId);
-    await listing.save();
-
-    return listing;
-}
-
-exports.removeFromfavourites = async (listingId, userId) => {
-
-    const listing = Listings.findById(listingId);
-
-
-    if (!listing){
-        throw new Error('Listing not found');
-    }
-
-    if (!listing.favoritedBy.includes(userId)){
-        throw new Error('Listing is not in favourites')
-    }
-
-    listing.favoritedBy = listing.favoritedBy.filter(
-        id => id.toString() !== userId.toString()
+exports.toggleFavorite = async (listingId, userId) => {
+    const addedToFavourites = await Listings.findOneAndUpdate(
+        { _id: listingId, favoritedBy: { $ne: userId } },
+        { $push: {favoritedBy: userId} },
+    { new: true }
     );
-    await listing.save();
 
-    return listing;
-}
+    if (addedToFavourites) {
+        return {
+            liked: true,
+            message: "Bolig blev tilføjet til favoritter",
+            post: addedToFavourites
+        };
+    }
+
+    const removeFromFavourties = await Listing.findOneAndUpdate(
+        { _id: listingId, favoritedBy: { $ne: userId } },
+        { $pull: { favoritedBy: userId } },
+        { new: true }
+    );
+
+    if (removeFromFavourties) {
+        return {
+            favorited: false,
+            message: "Bolig fjernet fra favoritter",
+            listing: removedFromFavourites
+        };
+    }
+
+    return null;
+};
+
+// exports.addTofavourites = async (listingId, userId) => {
+//
+//     //checks før saving
+//     const listing = await Listings.findById(listingId);
+//     if (!listing){
+//         throw new Error('Listing not found');
+//     }
+//
+//     const user = await Users.findById(userId);
+//     if (!user){
+//         throw new Error('User not found');
+//     }
+//
+//     if (listing.favoritedBy.includes(userId)){
+//         throw new Error('Listing already favourited')
+//     }
+//
+//     listing.favoritedBy.push(userId);
+//     await listing.save();
+//
+//     return listing;
+// }
+//
+// exports.removeFromfavourites = async (listingId, userId) => {
+//
+//     const listing = Listings.findById(listingId);
+//
+//
+//     if (!listing){
+//         throw new Error('Listing not found');
+//     }
+//
+//     if (!listing.favoritedBy.includes(userId)){
+//         throw new Error('Listing is not in favourites')
+//     }
+//
+//     listing.favoritedBy = listing.favoritedBy.filter(
+//         id => id.toString() !== userId.toString()
+//     );
+//     await listing.save();
+//
+//     return listing;
+// }
 
 exports.getUserFavourites = async ( userId) => {
 

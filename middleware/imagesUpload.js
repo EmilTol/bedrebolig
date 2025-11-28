@@ -8,7 +8,7 @@ const storage = multer.diskStorage({
     filename: (req, file, callback) => {
         const uniqueId = Date.now() + "-" + Math.round(Math.random() * 1e9);
         const ext = path.extname(file.originalname);
-        callback(null, path.join(__dirname, "..", "public", "images", uniqueId, ext));
+        callback(null, file.fieldname + "-" + uniqueId + ext);
     }
 });
 
@@ -22,4 +22,5 @@ const fileFilter = (req, file, callback) => {
 
 const upload = multer({ storage, fileFilter });
 
-module.exports = upload;
+//eksporter som objekt
+module.exports = {upload};

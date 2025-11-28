@@ -1,11 +1,15 @@
 const listingService = require('../services/listingsService');
 
 exports.createListing = async (req, res) => {
-    console.log("Controller req.body:", req.body);
-    console.log("Controller req.user:", req.user);
-    console.log("Controller req.user.id:", req.user?.id);
+
+    // const images = req.files.map ? `/images/${req.file.filename}` : null;
+
+    const images = req.files && req.files.length > 0
+        ? req.files.map(file => `/images/${file.filename}`)
+        : [];
+
     try{
-        const listing = await listingService.createListing(req.body, req.user.id);
+        const listing = await listingService.createListing(req.body, req.user.id, { images });
         res.status(201).json(listing);
     } catch ( error) {
         res.status(500).json({error: error.message});
@@ -24,49 +28,65 @@ exports.deleteListing = async (req, res) => {
     }
 };
 
-exports.addToFavourites = async (req, res) => {
+exports.toggleFavourite = async (req, res) => {
     try {
         const listingId = req.params.id;
         const userId = req.user.id;
 
-        const listing = await listingService.addTofavourites(listingId, userId);
-        res.status(200).json({
-            message: 'Favourites added successfully',
-            listing : listing
-        });
+        const result = await listingService.toggleFavorite(listingId, userId);
 
-    } catch (error) {
-        if (error.message === 'User not found' || error.message === 'Listing not found') {
-           return res.status(404).json({error: error.message});
+        if(!result) {
+            return res.status(404).json({error: "Listing not found"});
         }
-        if (error.message === 'Listing already favourited'){
-           return res.status(400).json({error: error.message});
-        }
+        res.status(200).json(result);
+    } catch ( error ) {
         res.status(500).json({error: error.message});
     }
 };
 
-exports.removeFromFavourites = async (req, res) => {
-    try {
-        const userId = req.user.id;
-        const listingId = req.params.id;
+// exports.addToFavourites = async (req, res) => {
+//     try {
+//         const listingId = req.params.id;
+//         const userId = req.user.id;
+//
+//         const listing = await listingService.addTofavourites(listingId, userId);
+//         res.status(200).json({
+//             message: 'Favourites added successfully',
+//             listing : listing
+//         });
+//
+//     } catch (error) {
+//         if (error.message === 'User not found' || error.message === 'Listing not found') {
+//            return res.status(404).json({error: error.message});
+//         }
+//         if (error.message === 'Listing already favourited'){
+//            return res.status(400).json({error: error.message});
+//         }
+//         res.status(500).json({error: error.message});
+//     }
+// };
 
-        const listing = listingService.removeFromfavourites(listingId, userId);
-        res.status(200).json({
-            message: 'listing removed from favouritess successfully',
-            listing : listing
-        });
-
-    } catch (error) {
-        if (error.message === 'Listing not found'){
-            return res.status(404).json({error: error.message});
-        }
-        if (error.message === 'Listing is not in favourites'){
-            return res.status(400).json({error: error.message});
-        }
-        res.status(500).json({error: error.message});
-    }
-};
+// exports.removeFromFavourites = async (req, res) => {
+//     try {
+//         const userId = req.user.id;
+//         const listingId = req.params.id;
+//
+//         const listing = listingService.removeFromfavourites(listingId, userId);
+//         res.status(200).json({
+//             message: 'listing removed from favouritess successfully',
+//             listing : listing
+//         });
+//
+//     } catch (error) {
+//         if (error.message === 'Listing not found'){
+//             return res.status(404).json({error: error.message});
+//         }
+//         if (error.message === 'Listing is not in favourites'){
+//             return res.status(400).json({error: error.message});
+//         }
+//         res.status(500).json({error: error.message});
+//     }
+// };
 
 exports.getUserFavourites = async (req, res) => {
     try {
