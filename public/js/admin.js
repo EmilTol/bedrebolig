@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
 
     if (!token || user.role !== 'admin') {
-        alert('Du har ikke adgang til dette panel');
+        //alert('Du har ikke adgang til dette panel');
         window.location.href = '/';
         return;
     }

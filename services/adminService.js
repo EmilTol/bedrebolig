@@ -4,7 +4,7 @@ const {hashPassword} = require("../utils/bcrypt");
 const {Roles} = require("../utils/enums");
 
 exports.getAllUsers = async () => {
-    const users = await User.find().select('-password');
+    const users = await User.find({ role: 'user'}).select('-password');
     return users;
 }
 
@@ -33,7 +33,7 @@ exports.updateUser = async (userId, data, adminId) => {
 };
 
 exports.deleteUser = async (userId, adminId) => {
-    if (userId === adminId) {
+    if (userId.toString() === adminId.toString()) {
         throw new Error('you cannot delete your own account');
     }
     const user = await User.findByIdAndDelete(userId).select('-password');
