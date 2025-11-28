@@ -1,7 +1,7 @@
 // Check if user is logged in
 document.addEventListener('DOMContentLoaded', () => {
-    const token = localStorage.getItem('token');
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const token = sessionStorage.getItem('token');
+    const user = JSON.parse(sessionStorage.getItem('user') || '{}');
 
     console.log('Loaded user from localStorage:', user); // Debug
     console.log('User ID:', user._id); // Debug
@@ -46,7 +46,7 @@ document.getElementById('cancelBtn').addEventListener('click', () => {
     document.getElementById('viewMode').style.display = 'block';
 
     // Reset form
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    const user = JSON.parse(sessionStorage.getItem('user') || '{}');
     loadUserData(user);
     document.getElementById('password').value = '';
     document.getElementById('confirmPassword').value = '';
@@ -88,8 +88,8 @@ document.getElementById('profileForm').addEventListener('submit', async (e) => {
     }
 
     try {
-        const token = localStorage.getItem('token');
-        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = sessionStorage.getItem('token');
+        const user = JSON.parse(sessionStorage.getItem('user') || '{}');
 
 
         if (!user._id) {
@@ -124,7 +124,7 @@ document.getElementById('profileForm').addEventListener('submit', async (e) => {
         if (response.ok) {
             // Update local storage
             const updatedUser = { ...user, ...data };
-            localStorage.setItem('user', JSON.stringify(updatedUser));
+            sessionStorage.setItem('user', JSON.stringify(updatedUser));
 
             // Show success message
             successMessage.textContent = 'Profil opdateret succesfuldt!';
@@ -176,8 +176,8 @@ document.getElementById('deleteAccountBtn').addEventListener('click', async () =
     }
 
     try {
-        const token = localStorage.getItem('token');
-        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = sessionStorage.getItem('token');
+        const user = JSON.parse(sessionStorage.getItem('user') || '{}');
 
         if (!user._id) {
             alert('Bruger ID mangler - prøv at logge ind igen');
@@ -194,8 +194,8 @@ document.getElementById('deleteAccountBtn').addEventListener('click', async () =
 
         if (response.ok) {
             // Clear local storage
-            localStorage.removeItem('token');
-            localStorage.removeItem('user');
+            sessionStorage.removeItem('token');
+            sessionStorage.removeItem('user');
 
             // Redirect to landing page
             alert('Din konto er blevet slettet.');

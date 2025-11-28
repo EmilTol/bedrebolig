@@ -26,8 +26,8 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
 
         if (response.ok) {
             // Gem token og redirect
-            localStorage.setItem('token', data.token);
-            localStorage.setItem("user", JSON.stringify(data.user));
+            sessionStorage.setItem('token', data.token);
+            sessionStorage.setItem("user", JSON.stringify(data.user));
             window.location.href = '/';
         } else {
             errorMessage.textContent = 'Forkert email eller adgangskode';
