@@ -76,6 +76,42 @@ nav {
     background-color: #f5f5f5;
 }
 
+/* User Menu */
+.user-menu {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.btn-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: transparent;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 0.6rem 1rem;
+}
+
+.btn-profile:hover {
+    background-color: #f5f5f5;
+}
+
+.btn-profile svg {
+    width: 20px;
+    height: 20px;
+}
+
+.btn-logout {
+    background-color: #ff5722;
+    color: white;
+    font-weight: 600;
+}
+
+.btn-logout:hover {
+    background-color: #e64a19;
+}
+
 /* Hero Section */
 .hero {
     position: relative;
@@ -466,5 +502,10 @@ footer {
 
     .nav-links {
         display: none;
+    }
+
+    .user-menu {
+        flex-direction: column;
+        gap: 0.5rem;
     }
 }

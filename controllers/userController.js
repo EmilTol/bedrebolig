@@ -30,6 +30,9 @@ exports.getById = async (req, res) => {
 
 exports.update = async (req, res) => {
     try{
+        if (req.user.id !== req.params.id && req.user.role !== 'admin') {
+            return res.status(403).json({ error: 'Du kan kun opdatere din egen profil' });
+        }
         const user = await service.update(req.params.id, req.body);
         res.status(200).json(user);
     } catch (error) {
@@ -38,6 +41,13 @@ exports.update = async (req, res) => {
 }
 exports.delete = async (req, res) => {
     try {
+        if (req.user.id !== req.params.id &&
+            req.user.role !== 'admin' &&
+            req.user.role !== 'realtor') {
+            return res.status(403).json({ error: 'Du kan kun slette din egen konto' });
+        }
+
+
         const user = await service.delete(req.params.id);
         res.status(200).json(user);
     } catch (error) {

@@ -1,3 +1,41 @@
+// Check login status on page load
+document.addEventListener('DOMContentLoaded', () => {
+    checkLoginStatus();
+});
+
+function checkLoginStatus() {
+    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+    const loginBtn = document.getElementById('loginBtn');
+    const userMenu = document.getElementById('userMenu');
+    const userName = document.getElementById('userName');
+
+    if (token && user.name) {
+        // User is logged in
+        loginBtn.style.display = 'none';
+        userMenu.style.display = 'flex';
+        userName.textContent = user.name.split(' ')[0]; // First name only
+    } else {
+        // User is not logged in
+        loginBtn.style.display = 'block';
+        userMenu.style.display = 'none';
+    }
+}
+
+// Logout functionality
+const logoutBtn = document.getElementById('logoutBtn');
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+        // Clear local storage
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+
+        // Reload page to update UI
+        window.location.reload();
+    });
+}
+
 // Search functionality
 const searchBox = document.querySelector('.search-box');
 const searchInput = searchBox?.querySelector('input');

@@ -26,14 +26,31 @@ exports.getById = async (id) => {
 }
 
 exports.update = async (id, data) => {
-    if (data.password) {
+    // Only hash password if it's being updated
+    if (data.password && data.password.trim() !== '') {
         data.password = await hashPassword(data.password);
+    } else {
+        // Remove password field if empty or not provided
+        delete data.password;
     }
-    const user = await User.findByIdAndUpdate(id, data, { new: true });
+
+    const user = await User.findByIdAndUpdate(
+        id,
+        data,
+        {
+            new: true,
+            runValidators: true
+        }
+    );
+
     if (!user) {
         throw new Error('Ingen bruger fundet');
     }
-    return user;
+
+    // Return user without password
+    const userObject = user.toObject();
+    delete userObject.password;
+    return userObject;
 }
 
 exports.delete = async (id) => {

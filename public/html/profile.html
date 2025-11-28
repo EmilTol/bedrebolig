@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Min Profil - Bedrebolig</title>
+    <link rel="stylesheet" href="/css/profile.css">
+</head>
+<body>
+<header>
+    <nav>
+        <a href="/" class="logo">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            Bedrebolig
+        </a>
+        <a href="/" class="nav-back">← Tilbage til forsiden</a>
+    </nav>
+</header>
+
+<div class="main-content">
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+            <h1 id="profileName">Min Profil</h1>
+            <p id="profileRole" class="profile-role">Bruger</p>
+        </div>
+
+        <div class="profile-sections">
+            <!-- View Mode -->
+            <div id="viewMode" class="profile-view">
+                <div class="profile-info-card">
+                    <h2>Personlige oplysninger</h2>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Navn</label>
+                            <p id="viewName">-</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Email</label>
+                            <p id="viewEmail">-</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Telefonnummer</label>
+                            <p id="viewPhone">-</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Rolle</label>
+                            <p id="viewRoleInfo">-</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" id="editBtn">Rediger profil</button>
+                </div>
+            </div>
+
+            <!-- Edit Mode -->
+            <div id="editMode" class="profile-edit" style="display: none;">
+                <div class="profile-info-card">
+                    <h2>Rediger profil</h2>
+
+                    <div class="success-message" id="successMessage"></div>
+                    <div class="error-message" id="errorMessage"></div>
+
+                    <form id="profileForm">
+                        <div class="form-group">
+                            <label for="name">Fulde navn</label>
+                            <input type="text" id="name" name="name" required placeholder="Anders Andersen">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required placeholder="din@email.dk">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phoneNumber">Telefonnummer</label>
+                            <input type="tel" id="phoneNumber" name="phoneNumber" required placeholder="12345678" pattern="[0-9]{8}" maxlength="8">
+                            <small>8 cifre uden mellemrum</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Ny adgangskode (valgfrit)</label>
+                            <input type="password" id="password" name="password" placeholder="••••••••" minlength="5">
+                            <small>Lad feltet være tomt for at beholde nuværende adgangskode</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">Bekræft ny adgangskode</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="••••••••">
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" id="cancelBtn">Annuller</button>
+                            <button type="submit" class="btn btn-primary">Gem ændringer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="danger-zone">
+            <h3>Farezone</h3>
+            <p>Når du sletter din konto, er der ingen vej tilbage. Vær sikker.</p>
+            <button class="btn btn-danger" id="deleteAccountBtn">Slet konto</button>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-content">
+        <p>&copy; 2024 Bedrebolig. Alle rettigheder forbeholdes.</p>
+    </div>
+</footer>
+
+<script src="/js/profile.js"></script>
+</body>
+</html>
