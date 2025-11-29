@@ -26,9 +26,9 @@ document.addEventListener("DOMContentLoaded", () => {
        formData.append("location[city]", city);
        formData.append("location[postalCode]", postalCode);
        formData.append("location[address]", address);
-       formData.append("location[coordinates][0]", lng);
-       formData.append("location[coordinates][1]", lat);
-
+       formData.append("location[coordinates][type]", "Point");
+       formData.append("location[coordinates][coordinates][0]", lng);
+       formData.append("location[coordinates][coordinates][1]", lat);
        formData.append("rooms", parseInt(document.getElementById("rooms").value));
        formData.append("lotSize", parseInt(document.getElementById("lotSize").value));
        formData.append("basementSize", parseInt(document.getElementById("basementSize").value));

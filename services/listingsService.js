@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const Listings = require ("../models/listings");
 const Users = require ("../models/users");
-const {removeFromFavourites} = require("../controllers/listingsController");
+// const {removeFromFavourites} = require("../controllers/listingsController");
 
 
 exports.createListing = async (data, userId, extra = {}) => {
@@ -10,7 +10,8 @@ exports.createListing = async (data, userId, extra = {}) => {
         const listing = new Listings ({
             ...data,
             user_id: userId,
-                ...extra
+            //SÅ, burde sætte dog som default hvis array er tomt
+            images: extra.images && extra.images.length > 0 ? extra.images : ["/images/Dog.jpg"],
         });
 
         await listing.save();

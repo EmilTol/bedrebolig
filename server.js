@@ -42,6 +42,10 @@ app.get('/admin', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'html', 'admin.html'));
 });
 
+app.get('/boligere', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'html', 'listings.html'));
+})
+
 connectDB();
 
 app.listen(port, () => console.log('Server klar på http://localhost:3000'));

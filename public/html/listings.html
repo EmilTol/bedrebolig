@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/listings.css">
+    <title>Boligere</title>
+</head>
+<body>
+<div class="filter-controls">
+    <input type="number" id="postalCodeFilter" placeholder="Postnummer" /><br>
+
+    <input type="number" id="minPrice" placeholder="Min pris" />
+    <input type="number" id="maxPrice" placeholder="Max pris" /><br>
+
+    <input type="number" id="minRooms" placeholder="Min værelser" />
+    <input type="number" id="maxRooms" placeholder="Max værelser" /><br>
+
+    <input type="text" id="cityFilter" placeholder="By" /></br>
+
+    <button id="applyFilters">Filtrer</button>
+</div>
+<div id="postMessage" class="postMessage">
+</div>
+<div class="listing-holder" id="listing-holder">
+<h1>Boligere</h1>
+        <div class="listing-item-image">
+            <div class="fakeImg"></div>
+        </div>
+
+</div>
+
+
+<script src="/js/listings.js"></script>
+</body>
+</html>

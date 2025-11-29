@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/listings.css">
     <title>Opret</title>
 </head>
 <body>
@@ -9,11 +11,11 @@
     <form>
         <h2>General information</h2>
         <label for="title"></label>Title<br>
-        <input type="text" placeholder="Smuk villa i Næstved" name="title" id="title" autofocus><br>
+        <input type="text" placeholder="Smuk villa i Næstved" name="title" id="title" autofocus required><br>
 
         <label for="description">Beskrivelse</label><br>
 <!--        <input type="text" placeholder="Bedrebolig" name="description" id="description"><br>-->
-        <textarea placeholder="Meget lang tekst :)" name="description" id="description" cols="30" rows="10"></textarea><br>
+        <textarea placeholder="Meget lang tekst :)" name="description" id="description" cols="30" rows="10" required></textarea><br>
 
 <!--        Husk at lav en dropdown menu med enums-->
         <label for="buildingType"></label>Form for bolig<br>

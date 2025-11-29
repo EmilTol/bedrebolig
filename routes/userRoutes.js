@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const controller = require("../controllers/userController");
-const {validateUser} = require("../middleware/userValidator");
+const {validateUser, validateLogin} = require("../middleware/userValidator");
 const {validateUserUpdate} = require("../middleware/updateUserValidator");
 const {authentication, authorize } = require("../middleware/authentication");
 const {Roles} = require("../utils/enums");
+const { loginLimiter } = require("../middleware/rateLimiter");
 
 router.post('/user', validateUser, controller.create);
 
@@ -16,6 +17,6 @@ router.get('/user/:id', controller.getById);
 router.get('/users', controller.getAll);
 
 //lav validation til login, ikke brug validateUser
-router.post("/login", controller.loginUser);
+router.post("/login" , loginLimiter, validateLogin, controller.loginUser);
 
 module.exports = router;

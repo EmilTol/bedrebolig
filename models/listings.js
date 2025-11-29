@@ -8,7 +8,8 @@ const listingSchema = new Schema({
     title: {type: String, required: true},
     description: {type: String, required: true},
     status: {type: String, required: true, enum: Object.values(Status), default: Status.UNDERREVIEW }, //lav enums i utils
-    images: {type: [String], required: false, default: []}, // Lav sti til default billede her måske
+    //det her fungere ikke, for selv hvis array tomt, mongoose ignorer default ved tomt array
+    images: {type: [String], required: false, default: ["/images/Dog.jpg"]}, // Lav sti til default billede her måske
     favoritedBy: [{type: Schema.Types.ObjectId, ref: "Users"}],
 
     //Property information
