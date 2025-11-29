@@ -36,19 +36,19 @@ exports.toggleFavorite = async (listingId, userId) => {
     const addedToFavourites = await Listings.findOneAndUpdate(
         { _id: listingId, favoritedBy: { $ne: userId } },
         { $push: {favoritedBy: userId} },
-    { new: true }
+        { new: true }
     );
 
     if (addedToFavourites) {
         return {
-            liked: true,
+            favorited: true,
             message: "Bolig blev tilføjet til favoritter",
-            post: addedToFavourites
+            listing: addedToFavourites
         };
     }
 
-    const removeFromFavourties = await Listing.findOneAndUpdate(
-        { _id: listingId, favoritedBy: { $ne: userId } },
+    const removeFromFavourties = await Listings.findOneAndUpdate(
+        { _id: listingId, favoritedBy: userId},
         { $pull: { favoritedBy: userId } },
         { new: true }
     );
@@ -57,7 +57,7 @@ exports.toggleFavorite = async (listingId, userId) => {
         return {
             favorited: false,
             message: "Bolig fjernet fra favoritter",
-            listing: removedFromFavourites
+            listing: removeFromFavourties
         };
     }
 
@@ -116,7 +116,7 @@ if (!user){
 }
 
 const favourites = await Listings.find({
-    favouritedBy:userId
+    favoritedBy:userId
 })
 return favourites;
 }

@@ -27,6 +27,7 @@ function renderListings(listings) {
             <p class="listing-item-content">${listing.title}</p>
             <p class="listing-item-content">${new Date(listing.createdAt).toLocaleString()}</p>
             
+            <button class="favorite-btn" data-id="${listing._id}">💖</button>
             `;
         listingHolder.appendChild(div);
     });
@@ -45,6 +46,32 @@ async function getAllListings() {
     console.log(error);
     }
 }
+// Fav logik
+listingHolder.addEventListener("click", async (e) => {
+    if(e.target.classList.contains('favorite-btn')) {
+
+        const listingId = e.target.dataset.id;
+        const token = sessionStorage.getItem('token');
+
+        if (!token) {
+            alert("Du skal være logget ind, for at bruge denne feature");
+            return;
+        }
+
+        try {
+            const response = await fetch(`/api/listing/${listingId}/favourite`, {
+                method: "POST",
+                headers: {Authorization: "Bearer " + token},
+            });
+
+            const data = await response.json();
+
+            getAllListings();
+        } catch (error) {
+            alert(error);
+        }
+    }
+});
 getAllListings();
 
 //lav kommentarer en anden dag OKAY
