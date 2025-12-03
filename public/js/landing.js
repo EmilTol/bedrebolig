@@ -27,7 +27,7 @@ function checkLoginStatus() {
 const logoutBtn = document.getElementById('logoutBtn');
 if (logoutBtn) {
     logoutBtn.addEventListener('click', () => {
-        // Clear local storage
+        // Clear session storage
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('user');
 
@@ -57,22 +57,33 @@ if (searchInput) {
     });
 }
 
-function handleSearch() {
+async function handleSearch() {
     const searchQuery = searchInput?.value.trim();
 
     if (!searchQuery) {
-        alert('Indtast en by eller område for at søge');
+        alert('Indtast en by, adresse eller postnummer for at søge');
         return;
     }
 
-    // Her kan du tilføje søgefunktionalitet til din backend
-    console.log('Søger efter:', searchQuery);
+    try {
+        // Call search API
+        const response = await fetch(`/api/search/listings?query=${encodeURIComponent(searchQuery)}`);
 
-    // Eksempel på redirect til søgeresultater side (når den er lavet)
-    // window.location.href = `/search?query=${encodeURIComponent(searchQuery)}`;
+        if (!response.ok) {
+            throw new Error('Søgningen fejlede');
+        }
 
-    // Midlertidig besked
-    alert(`Søgning efter boliger i: ${searchQuery}\n\nDenne funktionalitet vil blive implementeret senere.`);
+        const data = await response.json();
+
+        // Store search results and redirect to listings page
+        sessionStorage.setItem('searchResults', JSON.stringify(data.listings));
+        sessionStorage.setItem('searchQuery', searchQuery);
+        window.location.href = '/boligere';
+
+    } catch (error) {
+        console.error('Search error:', error);
+        alert('Der opstod en fejl ved søgning. Prøv igen.');
+    }
 }
 
 // Category card click handlers
@@ -96,12 +107,30 @@ cityCards.forEach(card => {
         const cityName = card.querySelector('.city-name')?.textContent;
         console.log('Valgt by:', cityName);
 
-        // Her kan du tilføje navigation til by side
-        // window.location.href = `/city/${cityName.toLowerCase()}`;
-
-        alert(`Du valgte: ${cityName}\n\nDenne funktionalitet vil blive implementeret senere.`);
+        // Use search functionality for cities
+        handleCitySearch(cityName);
     });
 });
+
+async function handleCitySearch(cityName) {
+    try {
+        const response = await fetch(`/api/search/listings?query=${encodeURIComponent(cityName)}`);
+
+        if (!response.ok) {
+            throw new Error('Søgningen fejlede');
+        }
+
+        const data = await response.json();
+
+        sessionStorage.setItem('searchResults', JSON.stringify(data.listings));
+        sessionStorage.setItem('searchQuery', cityName);
+        window.location.href = '/boligere';
+
+    } catch (error) {
+        console.error('City search error:', error);
+        alert('Der opstod en fejl ved søgning. Prøv igen.');
+    }
+}
 
 // Listing card click handlers
 const listingCards = document.querySelectorAll('.listing-card');

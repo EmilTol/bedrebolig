@@ -4,26 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/listings.css">
-    <title>Boligere</title>
+    <title>Boliger</title>
 </head>
 <body>
-<div class="filter-controls">
-    <input type="number" id="postalCodeFilter" placeholder="Postnummer" /><br>
+<div class="filters">
+    <input type="text" id="postalCodeFilter" placeholder="Postnummer">
+    <input type="text" id="cityFilter" placeholder="By">
 
-    <input type="number" id="minPrice" placeholder="Min pris" />
-    <input type="number" id="maxPrice" placeholder="Max pris" /><br>
+    <!-- NYT: Type filter -->
+    <select id="typeFilter">
+        <option value="">Alle typer</option>
+        <option value="Lejlighed">Lejlighed</option>
+        <option value="Villa">Villa</option>
+        <option value="Rækkehus">Rækkehus</option>
+        <option value="Ejerlejlighed">Ejerlejlighed</option>
+        <option value="Andelsbolig">Andelsbolig</option>
+        <option value="Fritidshus">Fritidshus</option>
+        <option value="Landejendom">Landejendom</option>
+        <option value="Villalejlighed">Villalejlighed</option>
+    </select>
 
-    <input type="number" id="minRooms" placeholder="Min værelser" />
-    <input type="number" id="maxRooms" placeholder="Max værelser" /><br>
+    <input type="number" id="minPrice" placeholder="Min pris">
+    <input type="number" id="maxPrice" placeholder="Max pris">
+    <input type="number" id="minRooms" placeholder="Min værelser">
+    <input type="number" id="maxRooms" placeholder="Max værelser">
 
-    <input type="text" id="cityFilter" placeholder="By" /></br>
-
-    <button id="applyFilters">Filtrer</button>
+    <button id="applyFilters">Anvend filtre</button>
 </div>
 <div id="postMessage" class="postMessage">
 </div>
 <div class="listing-holder" id="listing-holder">
-<h1>Boligere</h1>
+<h1>Boliger</h1>
         <div class="listing-item-image">
             <div class="fakeImg"></div>
         </div>

@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+      "test": "jest --verbose --coverage",
+      "test:watch": "jest --watch",
+      "test:unit": "jest --testPathPattern=unit",
+      "test:integration": "jest --testPathPattern=integration"
   },
   "keywords": [],
   "author": "",
@@ -21,5 +25,11 @@
     "mongoose": "^8.20.1",
     "morgan": "^1.10.1",
     "multer": "^2.0.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "jest": "^30.2.0",
+    "mongodb-memory-server": "^10.3.0",
+    "supertest": "^7.1.4"
   }
 }

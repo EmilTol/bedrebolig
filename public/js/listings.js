@@ -36,14 +36,31 @@ function renderListings(listings) {
 
 async function getAllListings() {
     try {
+        // Check if we have search results
+        const searchResults = sessionStorage.getItem('searchResults');
+
+        if (searchResults) {
+            // Display search results
+            allListings = JSON.parse(searchResults);
+            renderListings(allListings);
+            return;
+        }
+
+        // Otherwise, fetch all listings
         const response = await fetch('/api/admin/listings');
         if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
 
         allListings = await response.json();
+
+        // Filter to only show active listings
+        allListings = allListings.filter(listing => listing.status === 'active');
+
         renderListings(allListings);
 
     } catch (error) {
-    console.log(error);
+        console.log(error);
+        messageBox.textContent = 'Fejl ved hentning af boliger';
+        messageBox.style.color = 'red';
     }
 }
 // Fav logik
@@ -76,28 +93,61 @@ getAllListings();
 
 //lav kommentarer en anden dag OKAY
 applyFiltersBtn.addEventListener('click', () => {
-    const postalCode = document.getElementById('postalCodeFilter').value;
-    const minPrice = document.getElementById('minPrice').value;
-    const maxPrice = document.getElementById('maxPrice').value;
-    const minRooms = document.getElementById('minRooms').value;
-    const maxRooms = document.getElementById('maxRooms').value;
-    const city = document.getElementById('cityFilter').value.toLowerCase();
+    const postalCode = document.getElementById('postalCodeFilter').value.trim();
+    const minPrice = document.getElementById('minPrice').value.trim();
+    const maxPrice = document.getElementById('maxPrice').value.trim();
+    const minRooms = document.getElementById('minRooms').value.trim();
+    const maxRooms = document.getElementById('maxRooms').value.trim();
+    const city = document.getElementById('cityFilter').value.trim().toLowerCase();
+    const type = document.getElementById('typeFilter').value.trim().toLowerCase();
+
+    console.log('Filters applied:', { postalCode, minPrice, maxPrice, minRooms, maxRooms, city, type });
 
     const filtered = allListings.filter(listing => {
         const price = getNestedValue(listing, 'price.purchasePrice');
         const rooms = listing.rooms;
         const postal = getNestedValue(listing, 'location.postalCode');
         const listingCity = getNestedValue(listing, 'location.city')?.toLowerCase();
+        const listingType = listing.buildingType?.toLowerCase();
 
-        if (postalCode && postal != postalCode) return false;
-        if (minPrice && price < minPrice) return false;
-        if (maxPrice && price > maxPrice) return false;
-        if (minRooms && rooms < minRooms) return false;
-        if (maxRooms && rooms > maxRooms) return false;
-        if (city && listingCity !== city) return false;
+        // Postal code filter
+        if (postalCode && postal != postalCode) {
+            return false;
+        }
+
+        // Min price filter
+        if (minPrice !== '' && price < parseFloat(minPrice)) {
+            return false;
+        }
+
+        // Max price filter
+        if (maxPrice !== '' && price > parseFloat(maxPrice)) {
+            return false;
+        }
+
+        // Min rooms filter
+        if (minRooms !== '' && rooms < parseInt(minRooms)) {
+            return false;
+        }
+
+        // Max rooms filter
+        if (maxRooms !== '' && rooms > parseInt(maxRooms)) {
+            return false;
+        }
+
+        // City filter
+        if (city && listingCity !== city) {
+            return false;
+        }
+
+        // Type filter
+        if (type && listingType !== type) {
+            return false;
+        }
 
         return true;
     });
 
+    console.log(`Filtered: ${filtered.length} of ${allListings.length} listings`);
     renderListings(filtered);
 });

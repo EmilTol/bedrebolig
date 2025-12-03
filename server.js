@@ -11,6 +11,7 @@ const morgan = require('morgan');
 const listingRoutes = require('./routes/listingRoutes');
 const userRoutes = require('./routes/userRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const searchRoutes = require('./routes/searchRoutes');
 const {authorize} = require("./middleware/authentication");
 
 const app = express();
@@ -25,6 +26,7 @@ app.use(express.json());
 app.use("/api", listingRoutes);
 app.use("/api", userRoutes);
 app.use("/api", adminRoutes);
+app.use("/api", searchRoutes);
 //app.use(authorize);
 // Serve static files from public directory
 app.use(express.static(path.join(__dirname, 'public')));
