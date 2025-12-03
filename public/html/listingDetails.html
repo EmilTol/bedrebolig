@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bolig opslag</title>
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+<!--            integrity="sha256-sA+4n3t8XgJz5k8V2yz0GfFV/uyjXcKk5pP0v1fBzMk="-->
+<!--            crossorigin=""-->
+
+    <link rel="stylesheet" href="/css/listingDetails.css">
+</head>
+<body>
+<div class="container">
+    <div id="listing-image"></div>
+
+    <div class="content">
+        <p id="listing-title"></p>
+        <p id="listing-date"></p>
+
+        <div class="info-section">
+            <h2 class="section-title">Pris & Økonomi</h2>
+            <div class="info-grid">
+                <div class="info-item" id="listing-purchasePrice">
+                    <span class="info-label">Pris</span>
+                    <span class="info-value"></span>
+                </div>
+                <div class="info-item" id="listing-monthlyOwnershipCost">
+                    <span class="info-label">Månedlig ydelse</span>
+                    <span class="info-value"></span>
+                </div>
+                <div class="info-item" id="listing-downPayment">
+                    <span class="info-label">Udbetaling</span>
+                    <span class="info-value"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2 class="section-title">Adresse</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-label">Adresse</span>
+                    <span class="info-value" id="listing-address"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">By</span>
+                    <span class="info-value" id="listing-city"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Postnummer</span>
+                    <span class="info-value" id="listing-postalCode"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2 class="section-title">Boligdetaljer</h2>
+            <div class="details-grid">
+                <div class="detail-item">
+                    <span class="info-label">Type</span>
+                    <span class="info-value" id="listing-buildingType"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="info-label">Værelser</span>
+                    <span class="info-value" id="listing-rooms"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="info-label">Boligareal</span>
+                    <span class="info-value" id="listing-squareMeters"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="info-label">Grundareal</span>
+                    <span class="info-value" id="listing-lotSize"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="info-label">Kælderareal</span>
+                    <span class="info-value" id="listing-basementSize"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="info-label">Byggeår</span>
+                    <span class="info-value" id="listing-buildYear"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="info-label">Renoveret</span>
+                    <span class="info-value" id="listing-renovationYear"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="info-label">Etager</span>
+                    <span class="info-value" id="listing-floors"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="info-label">Etage</span>
+                    <span class="info-value" id="listing-apartmentFloor"></span>
+                </div>
+                <div class="detail-item" id="listing-energyRating">
+                    <span class="info-label">Energimærke</span>
+                    <span class="info-value"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-item">
+                <span class="info-label">Brutto</span>
+                <span class="info-value" id="listing-brutto"></span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Netto</span>
+                <span class="info-value" id="listing-netto"></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="listing-map" style="height: 400px; margin-top: 20px;"></div>
+</div>
+
+
+
+<script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+></script>
+<!--        integrity="sha256-p0Yl+g9w2cR3hHy3eTbO4DhXbd6jFVEWQzp7k0W4zYw="-->
+<!--        crossorigin=""-->
+
+
+<script src="/js/listingDeatils.js"></script>
+</body>
+</html>

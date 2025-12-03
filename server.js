@@ -46,7 +46,11 @@ app.get('/admin', (req, res) => {
 
 app.get('/boligere', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'html', 'listings.html'));
-})
+});
+
+app.get('/boligere/:id', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'html', 'listingDetails.html'));
+});
 
 connectDB();
 

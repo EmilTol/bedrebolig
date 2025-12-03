@@ -22,6 +22,14 @@ function renderListings(listings) {
         const div = document.createElement('div');
         div.classList.add("listing-item")
 
+        div.style.cursor = "pointer";
+        div.onclick = (e) => {
+            if (!e.target.classList.contains("favorite-btn")) {
+                window.location.href = `/boligere/${listing._id}`;
+            }
+        };
+
+
         div.innerHTML = `
             ${listing.images && listing.images.length > 0 ? `<img src="${listing.images[0]}" alt="listing name" class="listing-item-image" />` : ''}
             <p class="listing-item-content">${listing.title}</p>
@@ -29,6 +37,7 @@ function renderListings(listings) {
             
             <button class="favorite-btn" data-id="${listing._id}">💖</button>
             `;
+
         listingHolder.appendChild(div);
     });
 
