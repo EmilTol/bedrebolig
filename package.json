@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
       "test": "jest --verbose --coverage",
       "test:watch": "jest --watch",
       "test:unit": "jest --testPathPattern=unit",

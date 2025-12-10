@@ -18,17 +18,18 @@ document.addEventListener("DOMContentLoaded", () => {
        const postalCode = parseInt(document.getElementById("postalCode").value);
        const address = document.getElementById("adress").value;
 
-       // Koordinater: bruger "lng, lat" i ét input → split
-       //something is fucked up, bliver ikke sendt korrekt længere
-       const [lng, lat] = document.getElementById("coordinates").value.split(",").map(Number);
+       // Koordinater kommenteret ud - Vi geocoder fra adresse i stedet (listingDeatils.js)
+       // const [lng, lat] = document.getElementById("coordinates").value.split(",").map(Number);
 
        //samler city osv sammen i location (check models hvis forvirret)
        formData.append("location[city]", city);
        formData.append("location[postalCode]", postalCode);
        formData.append("location[address]", address);
-       formData.append("location[coordinates][type]", "Point");
-       formData.append("location[coordinates][coordinates][0]", lng);
-       formData.append("location[coordinates][coordinates][1]", lat);
+
+       // Koordinater sendes ikke til backend - Backend model skal opdateres (coordinates optional)
+       // formData.append("location[coordinates][type]", "Point");
+       // formData.append("location[coordinates][coordinates][0]", lng);
+       // formData.append("location[coordinates][coordinates][1]", lat);
        formData.append("rooms", parseInt(document.getElementById("rooms").value));
        formData.append("lotSize", parseInt(document.getElementById("lotSize").value));
        formData.append("basementSize", parseInt(document.getElementById("basementSize").value));
@@ -108,3 +109,33 @@ async function loadDropdowns() {
     });
 }
 loadDropdowns();
+
+// Navigation - tjek om bruger er logget ind (påkrævet for at oprette bolig)
+const token = sessionStorage.getItem('token');
+const user = JSON.parse(sessionStorage.getItem('user') || '{}');
+
+// Redirect hvis IKKE logget ind
+if (!token) {
+    alert('Du skal være logget ind for at oprette en bolig');
+    window.location.href = '/html/login.html';
+}
+
+// Redirect hvis IKKE admin eller realtor
+if (user.role !== 'admin' && user.role !== 'realtor') {
+    alert('Kun administratorer og ejendomsmæglere kan oprette boliger');
+    window.location.href = '/';
+}
+
+const userMenu = document.getElementById('userMenuCreate');
+if (token && user) {
+    // Bruger er logget ind - vis kun profil og log ud (ikke "opret bolig" da vi allerede er her)
+    userMenu.innerHTML = `
+        <a href="/html/profile.html">Profil</a>
+        <button id="logoutBtn">Log ud</button>
+    `;
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+        sessionStorage.clear();
+        window.location.href = '/';
+    });
+}

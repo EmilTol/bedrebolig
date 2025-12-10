@@ -52,6 +52,10 @@ app.get('/boligere/:id', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'html', 'listingDetails.html'));
 });
 
+app.get('/favoritter', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'html', 'favorites.html'));
+});
+
 connectDB();
 
 app.listen(port, () => console.log('Server klar på http://localhost:3000'));

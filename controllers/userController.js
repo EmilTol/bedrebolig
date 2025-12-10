@@ -39,7 +39,7 @@ exports.update = async (req, res) => {
         res.status(404).json({ error: error.message });
     }
 }
-exports.delete = async (req, res) => {
+exports.delete = async (req, res) => { // Læser jeg rigtig, kan realtor slette alle? Tænker ikke det er rigtigt?
     try {
         if (req.user.id !== req.params.id &&
             req.user.role !== 'admin' &&

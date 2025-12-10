@@ -28,8 +28,6 @@ function renderListings(listings) {
                 window.location.href = `/boligere/${listing._id}`;
             }
         };
-
-
         div.innerHTML = `
             ${listing.images && listing.images.length > 0 ? `<img src="${listing.images[0]}" alt="listing name" class="listing-item-image" />` : ''}
             <p class="listing-item-content">${listing.title}</p>
@@ -160,3 +158,30 @@ applyFiltersBtn.addEventListener('click', () => {
     console.log(`Filtered: ${filtered.length} of ${allListings.length} listings`);
     renderListings(filtered);
 });
+
+// Navigation - tjek om bruger er logget ind
+const token = sessionStorage.getItem('token');
+const user = JSON.parse(sessionStorage.getItem('user') || '{}');
+const userMenu = document.getElementById('userMenuListings');
+
+if (token && user) {
+    // Bruger er logget ind - vis profil og log ud
+    // Kun admin og realtor kan oprette boliger
+    const createListingLink = (user.role === 'admin' || user.role === 'realtor')
+        ? '<a href="/opret/bolig">Opret bolig</a>'
+        : '';
+
+    userMenu.innerHTML = `
+        <a href="/html/profile.html">Profil</a>
+        ${createListingLink}
+        <button id="logoutBtn">Log ud</button>
+    `;
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+        sessionStorage.clear();
+        window.location.href = '/';
+    });
+} else {
+    // Bruger er IKKE logget ind - vis login knap
+    userMenu.innerHTML = '<a href="/html/login.html" style="background: #3498db; color: white; padding: 0.6rem 1rem; border-radius: 6px; text-decoration: none;">Log ind</a>';
+}

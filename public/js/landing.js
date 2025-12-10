@@ -86,19 +86,56 @@ async function handleSearch() {
     }
 }
 
-// Category card click handlers
-const categoryCards = document.querySelectorAll('.category-card');
-categoryCards.forEach(card => {
-    card.addEventListener('click', () => {
-        const categoryName = card.querySelector('h3')?.textContent;
-        console.log('Valgt kategori:', categoryName);
+// Hent og vis de nyeste 6 boliger
+async function loadNewestListings() {
+    const container = document.getElementById('newest-listings-container');
+    const loading = document.getElementById('newest-loading');
 
-        // Her kan du tilføje navigation til kategori side
-        // window.location.href = `/category/${categoryName.toLowerCase()}`;
+    if (!container || !loading) return; // Hvis elementerne ikke findes
 
-        alert(`Du valgte: ${categoryName}\n\nDenne funktionalitet vil blive implementeret senere.`);
-    });
-});
+    loading.style.display = 'block';
+
+    try {
+        // Hent alle boliger fra admin ( skal vi huske at ændre xD )
+        const response = await fetch('/api/admin/listings');
+
+        if (!response.ok) {
+            throw new Error('Kunne ikke hente boliger');
+        }
+
+        const listings = await response.json();
+
+        // Filtrer kun aktive boliger og tag de 6 nyeste
+        const activeListings = listings.filter(listing => listing.status === 'active');
+        const newest = activeListings.slice(0, 6);
+
+        if (newest.length === 0) {
+            container.innerHTML = '<p style="text-align: center;">Ingen boliger tilgængelige endnu</p>';
+            return;
+        }
+
+        // Render kortene
+        container.innerHTML = newest.map(listing => `
+            <div class="listing-card" onclick="window.location.href='/boligere/${listing._id}'" style="cursor: pointer;">
+                <div class="listing-image" style="background-image: url('${listing.images && listing.images[0] ? listing.images[0] : '/images/Dog.jpg'}'); background-size: cover; background-position: center; height: 200px; border-radius: 8px 8px 0 0;"></div>
+                <div class="listing-content">
+                    <div class="listing-title">${listing.title}</div>
+                    <div class="listing-location">${listing.location.city}, ${listing.location.postalCode}</div>
+                    <div class="listing-price">${listing.price.purchasePrice.toLocaleString('da-DK')} kr.</div>
+                </div>
+            </div>
+        `).join('');
+
+    } catch (error) {
+        console.error('Fejl ved indlæsning af nyeste boliger:', error);
+        container.innerHTML = '<p style="text-align: center; color: #e74c3c;">Kunne ikke indlæse boliger. Prøv igen senere.</p>';
+    } finally {
+        loading.style.display = 'none';
+    }
+}
+
+// Kald funktionen når siden loader
+loadNewestListings();
 
 // City card click handlers
 const cityCards = document.querySelectorAll('.city-card');
@@ -131,21 +168,6 @@ async function handleCitySearch(cityName) {
         alert('Der opstod en fejl ved søgning. Prøv igen.');
     }
 }
-
-// Listing card click handlers
-const listingCards = document.querySelectorAll('.listing-card');
-listingCards.forEach(card => {
-    card.addEventListener('click', () => {
-        const listingTitle = card.querySelector('.listing-title')?.textContent;
-        console.log('Valgt bolig:', listingTitle);
-
-        // Her kan du tilføje navigation til bolig detaljer side
-        // const listingId = card.dataset.listingId;
-        // window.location.href = `/listing/${listingId}`;
-
-        alert(`Du valgte: ${listingTitle}\n\nDenne funktionalitet vil blive implementeret senere.`);
-    });
-});
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {

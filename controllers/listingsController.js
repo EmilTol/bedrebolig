@@ -92,7 +92,7 @@ exports.getUserFavourites = async (req, res) => {
     try {
         const userId = req.user.id;
 
-        const favourites = listingService.getUserFavourites(userId);
+        const favourites = await listingService.getUserFavourites(userId);
         res.status(200).json({
             count : favourites.length,
             favorites : favourites

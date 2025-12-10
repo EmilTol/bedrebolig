@@ -27,7 +27,7 @@ const listingSchema = new Schema({
         address: {type: String, required: true},
         coordinates: {
             type: {type: String, enum: ['Point'], default: 'Point'},
-            coordinates: {type: [Number], required: true}, //lng, lat
+            coordinates: {type: [Number], required: false}, //lng, lat, behøves ikke længere da vi bruger geodecoding
         }
     },
     rooms: {type: Number, required: true},

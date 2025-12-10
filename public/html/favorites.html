@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/favorites.css">
+    <title>Mine Favoritter - Bedrebolig</title>
+</head>
+<body>
+<header>
+    <nav>
+        <a href="/" class="logo">Bedrebolig</a>
+        <div class="nav-links">
+            <a href="/boligere">Se alle boliger</a>
+            <div id="userMenuFavorites"></div>
+        </div>
+    </nav>
+</header>
+
+<div class="container">
+    <h1>Mine Favoritter</h1>
+
+    <!-- Vises når der er favoritter -->
+    <div id="favorites-container" class="favorites-grid"></div>
+
+    <!-- Vises når der IKKE er favoritter -->
+    <div id="empty-state" style="display: none;">
+        <p>Du har ingen favoritter endnu</p>
+        <a href="/boligere" class="btn-browse">Find boliger</a>
+    </div>
+
+    <!-- Fejlbesked -->
+    <div id="error-message" style="display: none;"></div>
+</div>
+
+<script src="/js/favorites.js"></script>
+</body>
+</html>
