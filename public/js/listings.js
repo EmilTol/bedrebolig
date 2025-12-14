@@ -9,6 +9,14 @@ function getNestedValue(obj, path) {
     return path.split('.').reduce((acc, key) => acc?.[key], obj);
 }
 
+// Helper function to check if a listing is favorited by current user
+function isListingFavorited(listing) {
+    const user = JSON.parse(sessionStorage.getItem('user') || '{}');
+    if (!user._id || !listing.favoritedBy) return false;
+    // MongoDB ObjectIds are strings when returned from API, so we can use includes
+    return listing.favoritedBy.includes(user._id);
+}
+
 function renderListings(listings) {
     listingHolder.innerHTML = '';
 
@@ -20,21 +28,39 @@ function renderListings(listings) {
 
     listings.forEach((listing) => {
         const div = document.createElement('div');
-        div.classList.add("listing-item")
+        div.classList.add("listing-card")
 
-        div.style.cursor = "pointer";
         div.onclick = (e) => {
-            if (!e.target.classList.contains("favorite-btn")) {
+            if (!e.target.closest(".favorite-btn")) {
                 window.location.href = `/boligere/${listing._id}`;
             }
         };
+
+        const imageUrl = listing.images && listing.images.length > 0
+            ? listing.images[0]
+            : '';
+
+        // Check if this listing is favorited by current user
+        const isFavorited = isListingFavorited(listing);
+        const heartFill = isFavorited ? '#ff5722' : 'none';
+        const heartStroke = isFavorited ? '#ff5722' : 'currentColor';
+        const favoritedClass = isFavorited ? 'favorited' : '';
+
         div.innerHTML = `
-            ${listing.images && listing.images.length > 0 ? `<img src="${listing.images[0]}" alt="listing name" class="listing-item-image" />` : ''}
-            <p class="listing-item-content">${listing.title}</p>
-            <p class="listing-item-content">${new Date(listing.createdAt).toLocaleString()}</p>
-            
-            <button class="favorite-btn" data-id="${listing._id}">💖</button>
-            `;
+            ${imageUrl
+                ? `<div class="listing-image" style="background-image: url('${imageUrl}');"></div>`
+                : '<div class="listing-image"></div>'}
+            <div class="listing-content">
+                <div class="listing-title">${listing.title}</div>
+                <div class="listing-location">${listing.location.city}, ${listing.location.postalCode}</div>
+                <div class="listing-price">${listing.price.purchasePrice.toLocaleString('da-DK')} kr.</div>
+            </div>
+            <button class="favorite-btn ${favoritedClass}" data-id="${listing._id}">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="${heartFill}" stroke="${heartStroke}" stroke-width="2">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+            </button>
+        `;
 
         listingHolder.appendChild(div);
     });
@@ -72,9 +98,11 @@ async function getAllListings() {
 }
 // Fav logik
 listingHolder.addEventListener("click", async (e) => {
-    if(e.target.classList.contains('favorite-btn')) {
+    // Use closest to find the button even if clicking on SVG/path inside it
+    const favoriteBtn = e.target.closest('.favorite-btn');
 
-        const listingId = e.target.dataset.id;
+    if(favoriteBtn) {
+        const listingId = favoriteBtn.dataset.id;
         const token = sessionStorage.getItem('token');
 
         if (!token) {
@@ -98,7 +126,7 @@ listingHolder.addEventListener("click", async (e) => {
 });
 getAllListings();
 
-//lav kommentarer en anden dag OKAY
+
 applyFiltersBtn.addEventListener('click', () => {
     const postalCode = document.getElementById('postalCodeFilter').value.trim();
     const minPrice = document.getElementById('minPrice').value.trim();
@@ -159,14 +187,14 @@ applyFiltersBtn.addEventListener('click', () => {
     renderListings(filtered);
 });
 
-// Navigation - tjek om bruger er logget ind
+// Navigation - check if user is logged in
 const token = sessionStorage.getItem('token');
 const user = JSON.parse(sessionStorage.getItem('user') || '{}');
 const userMenu = document.getElementById('userMenuListings');
 
 if (token && user) {
-    // Bruger er logget ind - vis profil og log ud
-    // Kun admin og realtor kan oprette boliger
+    // If user logged in, show profile and logout
+    // Only admins and realtor see "opret bolig"
     const createListingLink = (user.role === 'admin' || user.role === 'realtor')
         ? '<a href="/opret/bolig">Opret bolig</a>'
         : '';
@@ -182,6 +210,6 @@ if (token && user) {
         window.location.href = '/';
     });
 } else {
-    // Bruger er IKKE logget ind - vis login knap
-    userMenu.innerHTML = '<a href="/html/login.html" style="background: #3498db; color: white; padding: 0.6rem 1rem; border-radius: 6px; text-decoration: none;">Log ind</a>';
+    // if user not logged in show login button
+    userMenu.innerHTML = '<a href="/html/login.html" class="btn btn-login">Log ind</a>';
 }

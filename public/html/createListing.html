@@ -3,16 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/listings.css">
-    <title>Opret</title>
+    <link rel="stylesheet" href="/css/shared.css">
+    <link rel="stylesheet" href="/css/createListing.css">
+    <title>Opret bolig - Bedrebolig</title>
 </head>
 <body>
 <header>
     <nav>
-        <a href="/" class="logo">Bedrebolig</a>
+        <a href="/" class="logo">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            Bedrebolig
+        </a>
         <div class="nav-links">
             <a href="/html/profile.html" class="back-btn">← Min profil</a>
-            <div id="userMenuCreate"></div>
+            <div id="userMenuCreate" class="user-menu"></div>
         </div>
     </nav>
 </header>
@@ -20,77 +27,75 @@
 <div class="wrapper">
     <form>
         <h2>General information</h2>
-        <label for="title"></label>Title<br>
+        <label for="title">Title *</label><br>
         <input type="text" placeholder="Smuk villa i Næstved" name="title" id="title" autofocus required><br>
 
-        <label for="description">Beskrivelse</label><br>
-<!--        <input type="text" placeholder="Bedrebolig" name="description" id="description"><br>-->
+        <label for="description">Beskrivelse *</label><br>
         <textarea placeholder="Meget lang tekst :)" name="description" id="description" cols="30" rows="10" required></textarea><br>
 
-<!--        Husk at lav en dropdown menu med enums-->
-        <label for="buildingType"></label>Form for bolig<br>
-        <select name="buildingType" id="buildingType"></select><br>
+        <label for="buildingType">Form for bolig *</label><br>
+        <select name="buildingType" id="buildingType" required></select><br>
 
-        <label for="buildYear"></label>Byggeår<br>
-        <input type="number" placeholder="f.eks. 1969" name="buildYear" id="buildYear"><br>
+        <label for="buildYear">Byggeår *</label><br>
+        <input type="number" placeholder="f.eks. 1969" name="buildYear" id="buildYear" required><br>
 
-        <label for="squareMeters">Kan ikke huske hvad hedder på dansk</label><br>
-        <input type="number" placeholder="idk sådan mange meter" name="squareMeters" id="squareMeters"><br>
+        <label for="squareMeters">Boligareal (m²) *</label><br>
+        <input type="number" placeholder="f.eks. 120" name="squareMeters" id="squareMeters" required><br>
 
         <h2>Lokation</h2>
-        <label for="city"></label>By<br>
-        <input type="text" placeholder="F.eks. Næstved" name="city" id="city"><br>
+        <label for="city">By *</label><br>
+        <input type="text" placeholder="F.eks. Næstved" name="city" id="city" required><br>
 
-        <label for="postalCode"></label>Postnummer<br>
-        <input type="number" placeholder="F.eks. 4700" name="postalCode" id="postalCode" max="9990"><br>
+        <label for="postalCode">Postnummer *</label><br>
+        <input type="number" placeholder="F.eks. 4700" name="postalCode" id="postalCode" max="9990" required><br>
 
-        <label for="adress"></label>Adresse<br>
-        <input type="text" placeholder="f.eks. Sjællandsvej 7" name="adress" id="adress"><br>
+        <label for="adress">Adresse *</label><br>
+        <input type="text" placeholder="f.eks. Sjællandsvej 7" name="adress" id="adress" required><br>
 
-        <label for="coordinates"></label>Koordinator til kort<br>
+        <label for="coordinates">Koordinater til kort</label><br>
         <input type="text" placeholder="F.eks. lng, lat" name="coordinates" id="coordinates"><br>
 
         <h2>Bolig informationer</h2>
-        <label for="rooms"></label>Rum<br>
-        <input type="number" placeholder="f.eks. 3" name="rooms" id="rooms"><br>
+        <label for="rooms">Antal rum *</label><br>
+        <input type="number" placeholder="f.eks. 3" name="rooms" id="rooms" required><br>
 
-        <label for="lotSize"></label>Grundareal eller noget dobbeltjek lige<br>
-        <input type="number" placeholder="Fucking gigantisk" name="lotSize" id="lotSize"><br>
+        <label for="lotSize">Grundareal (m²)</label><br>
+        <input type="number" placeholder="f.eks. 800" name="lotSize" id="lotSize"><br>
 
-        <label for="basementSize"></label>Kælderstørrelse<br>
-        <input type="number" placeholder="F.eks. 40meter :D" name="basementSize" id="basementSize"><br>
+        <label for="basementSize">Kælderstørrelse (m²)</label><br>
+        <input type="number" placeholder="f.eks. 40" name="basementSize" id="basementSize"><br>
 
-        <label for="renovationYear"></label>Du ved, bygget pænt igen år<br>
+        <label for="renovationYear">Renoveringsår</label><br>
         <input type="number" placeholder="f.eks. 2024" name="renovationYear" id="renovationYear"><br>
 
-        <label for="floors"></label>Etage<br>
-        <input type="number" placeholder="F.eks. 2" name="floors" id="floors"><br>
+        <label for="floors">Antal etager *</label><br>
+        <input type="number" placeholder="F.eks. 2" name="floors" id="floors" required><br>
 
-        <label for="apartmentFloor"></label>Ting apartment ord jeg træt<br>
+        <label for="apartmentFloor">Lejlighedsplacering</label><br>
         <input type="text" placeholder="F.eks. th" name="apartmentFloor" id="apartmentFloor"><br>
 
-        <label for="energyRating"></label>Energimærke<br>
-        <select name="energyRating" id="energyRating"></select><br>
+        <label for="energyRating">Energimærke *</label><br>
+        <select name="energyRating" id="energyRating" required></select><br>
 
         <h2>Pris</h2>
 
-        <label for="purchasePrice">Købspris</label><br>
-        <input type="number" placeholder="f.eks. 2300000" name="purchasePrice" id="purchasePrice"><br>
+        <label for="purchasePrice">Købspris *</label><br>
+        <input type="number" placeholder="f.eks. 2300000" name="purchasePrice" id="purchasePrice" required><br>
 
-        <label for="monthlyOwnershipCost">Mdl. ejerudgift</label><br>
-        <input type="number" placeholder="f.eks. 3200" name="monthlyOwnershipCost" id="monthlyOwnershipCost"><br>
+        <label for="monthlyOwnershipCost">Mdl. ejerudgift *</label><br>
+        <input type="number" placeholder="f.eks. 3200" name="monthlyOwnershipCost" id="monthlyOwnershipCost" required><br>
 
-        <label for="downPayment">Udbetaling</label><br>
-        <input type="number" placeholder="f.eks. 200000" name="downPayment" id="downPayment"><br>
+        <label for="downPayment">Udbetaling *</label><br>
+        <input type="number" placeholder="f.eks. 200000" name="downPayment" id="downPayment" required><br>
 
-        <label for="brutto">Brutto</label><br>
-        <input type="number" placeholder="f.eks. 8500" name="brutto" id="brutto"><br>
+        <label for="brutto">Brutto *</label><br>
+        <input type="number" placeholder="f.eks. 8500" name="brutto" id="brutto" required><br>
 
-        <label for="netto">Netto</label><br>
-        <input type="number" placeholder="f.eks. 7400" name="netto" id="netto"><br>
+        <label for="netto">Netto *</label><br>
+        <input type="number" placeholder="f.eks. 7400" name="netto" id="netto" required><br>
 
         <h2>Filer og billeder</h2>
-        <label for="evaluation">Evualalaltion dansk ord</label><br>
+        <label for="evaluation">Vurderingsdokument</label><br>
         <input type="file" placeholder="Fil" name="evaluation" id="evaluation"><br>
 
         <label for="images">Billeder</label><br>
@@ -100,6 +105,12 @@
 
     </form>
 </div>
+
+<footer>
+    <div class="footer-content">
+        <p>Bedrebolig</p>
+    </div>
+</footer>
 
 <script src="/js/createListing.js"></script>
 </body>

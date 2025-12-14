@@ -1,85 +1,7 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
-    line-height: 1.6;
-    padding: 0;
-}
-
-/* Navigation Header */
-header {
-    background: white;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    padding: 1rem 2rem;
-    margin-bottom: 20px;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-.logo {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #2c3e50;
-    text-decoration: none;
-}
-
-.logo:hover {
-    color: #3498db;
-}
-
-.nav-links {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-}
-
-.nav-links a {
-    color: #2c3e50;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s;
-}
-
-.nav-links a:hover {
-    color: #3498db;
-}
-
+/* Page-specific styles for listing details */
 .back-btn {
-    color: #3498db !important;
+    color: #ff5722 !important;
     font-weight: 600 !important;
-}
-
-#userMenuDetails {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-}
-
-#logoutBtn {
-    background: #e74c3c;
-    color: white;
-    border: none;
-    padding: 0.6rem 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background 0.3s;
-}
-
-#logoutBtn:hover {
-    background: #c0392b;
 }
 
 .container {
@@ -94,7 +16,8 @@ nav {
 #listing-image {
     width: 100%;
     height: 400px;
-    object-fit: cover;
+    background-size: cover;
+    background-position: center;
     overflow: hidden;
     display: block;
 }

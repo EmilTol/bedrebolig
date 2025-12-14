@@ -25,7 +25,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
         const data = await response.json();
 
         if (response.ok) {
-            // Gem token og redirect
+            // save token and redirect
             sessionStorage.setItem('token', data.token);
             sessionStorage.setItem("user", JSON.stringify(data.user));
             window.location.href = '/';

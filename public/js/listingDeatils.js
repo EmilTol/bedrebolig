@@ -25,10 +25,9 @@
     document.getElementById('listing-apartmentFloor').textContent = listing.apartmentFloor
     document.getElementById('listing-energyRating').textContent = listing.energyRating
     if(listing.images && listing.images.length > 0) {
-    const img = document.createElement('img');
-    img.src = listing.images[0];
-    document.getElementById('listing-image').appendChild(img);
-}
+        const imageDiv = document.getElementById('listing-image');
+        imageDiv.style.backgroundImage = `url('${listing.images[0]}')`;
+    }
  showListingMap(listing);
 
 });
@@ -44,7 +43,7 @@
         console.log(fullAddress);
 
         try {
-            // Brug Nominatim API til geocoding
+            // Nominatim API too geocoding
             const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(fullAddress)}`);
             const data = await response.json();
 
@@ -52,14 +51,14 @@
                 const lat = data[0].lat;
                 const lon = data[0].lon;
 
-                // Opret Leaflet-kort
+                // Create leaflet map
                 const map = L.map('listing-map').setView([lat, lon], 15);
 
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 }).addTo(map);
 
-                // Tilføj markør
+                // adds marker
                 L.marker([lat, lon]).addTo(map)
                     .bindPopup(fullAddress)
                     .openPopup();
@@ -72,14 +71,14 @@
         }
     }
 
-// Navigation - tjek om bruger er logget ind
+// Navigation check if user is logged in
 const token = sessionStorage.getItem('token');
 const user = JSON.parse(sessionStorage.getItem('user') || '{}');
 const userMenu = document.getElementById('userMenuDetails');
 
 if (token && user) {
-    // Bruger er logget ind - vis profil og log ud
-    // Kun admin og realtor kan oprette boliger
+    // If user logged in, show profile and logout
+    // Only admins and realtor see "opret bolig"
     const createListingLink = (user.role === 'admin' || user.role === 'realtor')
         ? '<a href="/opret/bolig">Opret bolig</a>'
         : '';
@@ -95,6 +94,6 @@ if (token && user) {
         window.location.href = '/';
     });
 } else {
-    // Bruger er IKKE logget ind - vis login knap
-    userMenu.innerHTML = '<a href="/html/login.html" style="background: #3498db; color: white; padding: 0.6rem 1rem; border-radius: 6px; text-decoration: none;">Log ind</a>';
+    // user logged in
+    userMenu.innerHTML = '<a href="/html/login.html" class="btn btn-login">Log ind</a>';
 }

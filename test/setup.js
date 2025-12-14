@@ -7,13 +7,6 @@ process.env.JWT_EXPIRES = '86400';
 // Increase timeout for database operations
 jest.setTimeout(30000);
 
-// Suppress console.log during tests (optional)
-// global.console = {
-//     ...console,
-//     log: jest.fn(),
-//     debug: jest.fn(),
-//     info: jest.fn(),
-// };
 
 // Global test utilities
 global.createMockListing = (overrides = {}) => {

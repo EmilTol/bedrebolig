@@ -38,7 +38,7 @@ async function loadFavorites() {
             }
         });
 
-        // Hvis fejl
+
         if (!response.ok) {
             throw new Error('Kunne ikke hente favoritter');
         }
@@ -59,7 +59,7 @@ async function loadFavorites() {
     }
 }
 
-// Vis boligerne som kort (genbruger samme stil som listings.js)
+
 function renderFavorites(favorites) {
     // Skjul tom besked og fejl
     emptyState.style.display = 'none';
@@ -71,10 +71,9 @@ function renderFavorites(favorites) {
     // For hver favorit, lav et kort
     favorites.forEach(listing => {
         const card = document.createElement('div');
-        card.classList.add('favorite-card');
+        card.classList.add('listing-card');
 
         // Gør kortet klikbart - går til detalje siden
-        card.style.cursor = 'pointer';
         card.onclick = (e) => {
             // Men IKKE hvis man klikker på fjern-knappen
             if (!e.target.classList.contains('remove-btn')) {
@@ -85,15 +84,13 @@ function renderFavorites(favorites) {
         // Byg HTML for kortet
         card.innerHTML = `
             ${listing.images && listing.images.length > 0
-                ? `<img src="${listing.images[0]}" alt="${listing.title}" class="favorite-image">`
+                ? `<div class="listing-image" style="background-image: url('${listing.images[0]}');"></div>`
                 : '<div class="no-image">Intet billede</div>'}
-            <div class="favorite-content">
-                <h3>${listing.title}</h3>
-                <p class="location">${listing.location.city}, ${listing.location.postalCode}</p>
-                <p class="price">${listing.price.purchasePrice.toLocaleString('da-DK')} kr.</p>
-                <button class="remove-btn" data-id="${listing._id}">
-                    <span>❤️</span> Fjern favorit
-                </button>
+            <div class="listing-content">
+                <div class="listing-title">${listing.title}</div>
+                <div class="listing-location">${listing.location.city}, ${listing.location.postalCode}</div>
+                <div class="listing-price">${listing.price.purchasePrice.toLocaleString('da-DK')} kr.</div>
+                <button class="remove-btn" data-id="${listing._id}">Fjern favorit</button>
             </div>
         `;
 

@@ -23,8 +23,7 @@ router.delete("/listing/:id", listingController.deleteListing);
 
 // routes til favourites
 router.post("/listing/:id/favourite", authentication, listingController.toggleFavourite);
-// router.post('/listing/:id/favorite', authentication, listingController.addToFavourites);
-// router.delete('/listing/:id/favourite', authentication, listingController.removeFromFavourites);
+
 
 router.get('/listing/favourites', authentication, listingController.getUserFavourites);
 

@@ -185,33 +185,38 @@ function displayListings(listings) {
         return;
     }
 
-    grid.innerHTML = listings.map(listing => `
+    grid.innerHTML = listings.map(listing => {
+        const imageUrl = listing.images && listing.images.length > 0 ? listing.images[0] : '';
+        const imageStyle = imageUrl ? `background-image: url('${imageUrl}');` : '';
+
+        return `
         <div class="listing-card" onclick="viewListing('${listing._id}')">
-            <div class="listing-image">
-                🏠
+            <div class="listing-image" style="${imageStyle}">
+                ${!imageUrl ? 'Intet billede' : ''}
             </div>
             <div class="listing-content">
                 <div class="listing-header">
                     <div>
                         <div class="listing-title">${listing.title}</div>
                         <div class="listing-location">
-                            📍 ${listing.location.city}, ${listing.location.postalCode}
+                            ${listing.location.city}, ${listing.location.postalCode}
                         </div>
                     </div>
                     <span class="status-badge ${listing.status}">${getStatusText(listing.status)}</span>
                 </div>
                 <div class="listing-price">${formatPrice(listing.price.purchasePrice)}</div>
                 <div class="listing-details">
-                    <div class="listing-detail">🛏️ ${listing.rooms} rum</div>
-                    <div class="listing-detail">📐 ${listing.squareMeters} m²</div>
-                    <div class="listing-detail">⚡ ${listing.energyRating}</div>
+                    <div class="listing-detail">${listing.rooms} rum</div>
+                    <div class="listing-detail">${listing.squareMeters} m²</div>
+                    <div class="listing-detail">${listing.energyRating}</div>
                 </div>
                 <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem;">
                     ${listing.buildingType} • ${listing.buildYear}
                 </div>
             </div>
         </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
 async function viewListing(listingId) {

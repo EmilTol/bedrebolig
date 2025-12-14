@@ -495,6 +495,8 @@ nav {
 .listing-image {
     height: 200px;
     background: var(--bg-hover);
+    background-size: cover;
+    background-position: center;
     display: flex;
     align-items: center;
     justify-content: center;

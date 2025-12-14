@@ -18,24 +18,37 @@ document.addEventListener("DOMContentLoaded", () => {
        const postalCode = parseInt(document.getElementById("postalCode").value);
        const address = document.getElementById("adress").value;
 
-       // Koordinater kommenteret ud - Vi geocoder fra adresse i stedet (listingDeatils.js)
-       // const [lng, lat] = document.getElementById("coordinates").value.split(",").map(Number);
 
        //samler city osv sammen i location (check models hvis forvirret)
        formData.append("location[city]", city);
        formData.append("location[postalCode]", postalCode);
        formData.append("location[address]", address);
 
-       // Koordinater sendes ikke til backend - Backend model skal opdateres (coordinates optional)
-       // formData.append("location[coordinates][type]", "Point");
-       // formData.append("location[coordinates][coordinates][0]", lng);
-       // formData.append("location[coordinates][coordinates][1]", lat);
        formData.append("rooms", parseInt(document.getElementById("rooms").value));
-       formData.append("lotSize", parseInt(document.getElementById("lotSize").value));
-       formData.append("basementSize", parseInt(document.getElementById("basementSize").value));
-       formData.append("renovationYear", parseInt(document.getElementById("renovationYear").value));
+
+       // Optional number fields - only append if they have a value
+       const lotSize = document.getElementById("lotSize").value;
+       if (lotSize && lotSize.trim() !== "") {
+           formData.append("lotSize", parseInt(lotSize));
+       }
+
+       const basementSize = document.getElementById("basementSize").value;
+       if (basementSize && basementSize.trim() !== "") {
+           formData.append("basementSize", parseInt(basementSize));
+       }
+
+       const renovationYear = document.getElementById("renovationYear").value;
+       if (renovationYear && renovationYear.trim() !== "") {
+           formData.append("renovationYear", parseInt(renovationYear));
+       }
+
        formData.append("floors", parseInt(document.getElementById("floors").value));
-       formData.append("apartmentFloor", document.getElementById("apartmentFloor").value);
+
+       const apartmentFloor = document.getElementById("apartmentFloor").value;
+       if (apartmentFloor && apartmentFloor.trim() !== "") {
+           formData.append("apartmentFloor", apartmentFloor);
+       }
+
        formData.append("energyRating", document.getElementById("energyRating").value);
 
 

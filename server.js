@@ -27,7 +27,7 @@ app.use("/api", listingRoutes);
 app.use("/api", userRoutes);
 app.use("/api", adminRoutes);
 app.use("/api", searchRoutes);
-//app.use(authorize);
+
 // Serve static files from public directory
 app.use(express.static(path.join(__dirname, 'public')));
 

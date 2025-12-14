@@ -13,12 +13,6 @@ const schema = Joi.object({
             'string.empty': 'Name cannot be empty'
         }),
 
-    /*role: Joi.string()
-        .valid(...Object.values(Roles))
-        .default(Roles.USER)
-        .messages({
-            'any.only': `Role must be one of: ${Object.values(Roles).join(', ')}`
-        }),*/
 
     email: Joi.string()
         .required()

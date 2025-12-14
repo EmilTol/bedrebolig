@@ -3,53 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/shared.css">
     <link rel="stylesheet" href="/css/listings.css">
     <title>Boliger</title>
 </head>
 <body>
 <header>
     <nav>
-        <a href="/" class="logo">Bedrebolig</a>
+        <a href="/" class="logo">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            Bedrebolig
+        </a>
         <div class="nav-links">
             <a href="/boligere">Alle boliger</a>
-            <a href="/favoritter">💖 Favoritter</a>
-            <div id="userMenuListings"></div>
+            <a href="/favoritter" style="display: flex; align-items: center; gap: 0.3rem;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+            </a>
+            <div id="userMenuListings" class="user-menu"></div>
         </div>
     </nav>
 </header>
 
-<div class="filters">
-    <input type="text" id="postalCodeFilter" placeholder="Postnummer">
-    <input type="text" id="cityFilter" placeholder="By">
+<div class="page-container">
+    <div class="page-header">
+        <h1>Find din drømmebolig</h1>
+    </div>
 
-    <!-- NYT: Type filter -->
-    <select id="typeFilter">
-        <option value="">Alle typer</option>
-        <option value="Lejlighed">Lejlighed</option>
-        <option value="Villa">Villa</option>
-        <option value="Rækkehus">Rækkehus</option>
-        <option value="Ejerlejlighed">Ejerlejlighed</option>
-        <option value="Andelsbolig">Andelsbolig</option>
-        <option value="Fritidshus">Fritidshus</option>
-        <option value="Landejendom">Landejendom</option>
-        <option value="Villalejlighed">Villalejlighed</option>
-    </select>
-
-    <input type="number" id="minPrice" placeholder="Min pris">
-    <input type="number" id="maxPrice" placeholder="Max pris">
-    <input type="number" id="minRooms" placeholder="Min værelser">
-    <input type="number" id="maxRooms" placeholder="Max værelser">
-
-    <button id="applyFilters">Anvend filtre</button>
-</div>
-<div id="postMessage" class="postMessage">
-</div>
-<div class="listing-holder" id="listing-holder">
-<h1>Boliger</h1>
-        <div class="listing-item-image">
-            <div class="fakeImg"></div>
+    <div class="filters-section">
+        <div class="filters">
+            <input type="text" id="postalCodeFilter" placeholder="Postnummer">
+            <input type="text" id="cityFilter" placeholder="By">
+            <select id="typeFilter">
+                <option value="">Alle typer</option>
+                <option value="Lejlighed">Lejlighed</option>
+                <option value="Villa">Villa</option>
+                <option value="Rækkehus">Rækkehus</option>
+                <option value="Ejerlejlighed">Ejerlejlighed</option>
+                <option value="Andelsbolig">Andelsbolig</option>
+                <option value="Fritidshus">Fritidshus</option>
+                <option value="Landejendom">Landejendom</option>
+                <option value="Villalejlighed">Villalejlighed</option>
+            </select>
+            <input type="number" id="minPrice" placeholder="Min pris">
+            <input type="number" id="maxPrice" placeholder="Max pris">
+            <input type="number" id="minRooms" placeholder="Min værelser">
+            <input type="number" id="maxRooms" placeholder="Max værelser">
         </div>
+        <button id="applyFilters" class="btn btn-primary">Anvend filtre</button>
+    </div>
 
+    <div id="postMessage" class="postMessage"></div>
+
+    <div id="listing-holder" class="listings-grid"></div>
 </div>
 
 

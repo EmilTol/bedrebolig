@@ -87,5 +87,4 @@ exports.loginUser = async (email, password) => {
         user: userObject,
         token: token
     };
-
 }

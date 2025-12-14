@@ -16,7 +16,6 @@ router.put('/user/:id', authentication ,validateUserUpdate, controller.update);
 router.get('/user/:id', controller.getById);
 router.get('/users', controller.getAll);
 
-//lav validation til login, ikke brug validateUser
 router.post("/login" , loginLimiter, validateLogin, controller.loginUser);
 
 module.exports = router;

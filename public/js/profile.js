@@ -3,9 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const token = sessionStorage.getItem('token');
     const user = JSON.parse(sessionStorage.getItem('user') || '{}');
 
-    console.log('Loaded user from localStorage:', user); // Debug
-    console.log('User ID:', user._id); // Debug
-
     if (!token || !user._id) {
         // Not logged in, redirect to login
         console.log('Not logged in, redirecting...');
