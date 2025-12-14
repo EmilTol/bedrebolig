@@ -1,3 +1,5 @@
+document.getElementById("year").textContent = new Date().getFullYear();
+
 const favoritesContainer = document.getElementById('favorites-container');
 const emptyState = document.getElementById('empty-state');
 const errorMessage = document.getElementById('error-message');

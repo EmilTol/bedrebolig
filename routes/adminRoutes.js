@@ -14,8 +14,8 @@ router.delete('/admin/users/:id', authentication, authorize(Roles.ADMIN), adminC
 
 // Listing management routes
 router.get('/admin/listings', adminController.getAllListings);
-router.get('/admin/listings/:id', authentication, adminController.getListingById);
-router.put('/admin/listings/:id', authentication, adminController.updateListing);
+router.get('/admin/listings/:id', adminController.getListingById);
+router.put('/admin/listings/:id', adminController.updateListing);
 
 
 module.exports = router;

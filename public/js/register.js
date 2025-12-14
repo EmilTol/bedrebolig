@@ -1,3 +1,5 @@
+document.getElementById("year").textContent = new Date().getFullYear();
+
 // Password strength checker
 const passwordInput = document.getElementById('password');
 const strengthBar = document.getElementById('passwordStrengthBar');

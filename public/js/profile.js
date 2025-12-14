@@ -1,3 +1,5 @@
+document.getElementById("year").textContent = new Date().getFullYear();
+
 // Check if user is logged in
 document.addEventListener('DOMContentLoaded', () => {
     const token = sessionStorage.getItem('token');

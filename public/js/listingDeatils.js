@@ -1,3 +1,4 @@
+document.getElementById("year").textContent = new Date().getFullYear();
 
     const listingId = window.location.pathname.split('/').pop();
 

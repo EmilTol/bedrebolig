@@ -1,3 +1,5 @@
+document.getElementById("year").textContent = new Date().getFullYear();
+
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector("form");
 
@@ -18,8 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
        const postalCode = parseInt(document.getElementById("postalCode").value);
        const address = document.getElementById("adress").value;
 
-
-       //samler city osv sammen i location (check models hvis forvirret)
+       //
+       // //samler city osv sammen i location (check models hvis forvirret)
        formData.append("location[city]", city);
        formData.append("location[postalCode]", postalCode);
        formData.append("location[address]", address);

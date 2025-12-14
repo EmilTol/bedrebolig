@@ -1,3 +1,5 @@
+document.getElementById("year").textContent = new Date().getFullYear();
+
 // Check login status on page load
 document.addEventListener('DOMContentLoaded', () => {
     checkLoginStatus();

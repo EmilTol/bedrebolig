@@ -11,7 +11,7 @@ exports.createListing = async (data, userId, extra = {}) => {
             ...data,
             user_id: userId,
             //Sets dog.jpg as default image
-            images: extra.images && extra.images.length > 0 ? extra.images : ["/images/Dog.jpg"],
+            images: extra.images && extra.images.length > 0 ? extra.images : ["/images/house-placeholder.jpg"],
         });
 
         await listing.save();

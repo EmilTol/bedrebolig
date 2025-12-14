@@ -1,3 +1,5 @@
+document.getElementById("year").textContent = new Date().getFullYear();
+
 document.getElementById('loginForm').addEventListener('submit', async (e) => {
     e.preventDefault();
 

@@ -1,3 +1,5 @@
+document.getElementById("year").textContent = new Date().getFullYear();
+
 const listingHolder = document.getElementById('listing-holder');
 const messageBox = document.getElementById('postMessage');
 const applyFiltersBtn = document.getElementById('applyFilters');
